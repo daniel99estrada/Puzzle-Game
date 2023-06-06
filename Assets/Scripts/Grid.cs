@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Grid : MonoBehaviour
@@ -72,7 +74,8 @@ public class Grid : MonoBehaviour
         if (InBounds(newCell) && GetCell(newCell).isEnabled)
         {
             DropCell(GetCell(playerCell));
-            MovePlayerGameObject(newCell);
+            // MovePlayerGameObject(newCell);
+            Assemble(new Vector3(dir.x, 0, dir.y)); 
             playerCell = newCell;
         }
         Debug.Log("Out of bounds");
@@ -119,16 +122,23 @@ public class Grid : MonoBehaviour
     {   
         cell.isEnabled = false;
         cell.visualizer.ActivateGravity();
-
-        // Transform cellTransform = cell.cellGameObject.transform;
-
-        // Vector3 newPosition = new Vector3(cellTransform.position.x, -20, cellTransform.position.z);
-        // float time = 0;
-
-        // while (time < 1)
-        // {
-        //     cellTransform.position = Vector3.Lerp(cellTransform.position, newPosition, time);
-        //     time += Time.deltaTime * speed;
-        // }  
     }
+    
+    public float _rollSpeed = 5;
+    void Assemble(Vector3 dir) 
+    {
+            var anchor = player.transform.position + (Vector3.down + dir) * (offsetX/2) ;
+            var axis = Vector3.Cross(Vector3.up, dir);
+            StartCoroutine(Roll(anchor, axis));
+    }
+    
+    private IEnumerator Roll(Vector3 anchor, Vector3 axis) {
+        // _isMoving = true;
+        for (var i = 0; i < 90 / _rollSpeed; i++) {
+            player.transform.RotateAround(anchor, axis, _rollSpeed);
+            yield return new WaitForSeconds(0.01f);
+        }
+        // _isMoving = false;
+    }
+
 }
