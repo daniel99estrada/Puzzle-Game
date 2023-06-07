@@ -6,8 +6,10 @@ public class CellVisualizer : MonoBehaviour {
     
     public Cell gridCell;
 
-    private void Start() {
+    void Start()
+    {   
         meshRenderer = GetComponent<MeshRenderer>();
+        Grid.Instance.grid[gridCell.x, gridCell.y] = gridCell;
     }
 
     public void Enabled(bool enabled) {

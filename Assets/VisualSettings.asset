@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62128a5726c3bf749b784a50223f8953, type: 3}
+  m_Name: VisualSettings
+  m_EditorClassIdentifier: 
+  scale: 1
+  playerPrefab: {fileID: 8625139702122873980, guid: cc542945c679d224fa91c99b85425a9e,
+    type: 3}
+  targetPrefab: {fileID: 8625139702122873980, guid: 395773aa5f1613e4498ccfb8859c7770,
+    type: 3}
+  prefab: {fileID: 8625139702122873980, guid: 7d512464e0152f54da9caf4d26ddf07c, type: 3}
+  offsetX: 1.1
+  offsetY: 1.1
+  playerHeight: 1
+  itemHeight: 1

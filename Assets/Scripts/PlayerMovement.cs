@@ -36,7 +36,6 @@ public class PlayerMovement : MonoBehaviour
     private void Move(InputAction.CallbackContext context)
     {   
         Vector2 movementInput = context.ReadValue<Vector2>();
-
         Grid.Instance.MovePlayer(movementInput);
     }
 }

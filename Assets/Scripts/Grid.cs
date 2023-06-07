@@ -6,20 +6,23 @@ public class Grid : MonoBehaviour
 {
     public int width;
     public int height;
-    public float scale = 1f;
-    public float offsetX = 1f;
-    public float offsetY = 1f;
-    public Cell[,] cells;
-    public Vector2 playerCell = new Vector2(0,0); 
-    public Vector2 targetPos = new Vector2(4,4); 
+
+    public VisualSettingsScriptableObject visualSettings;
+    public float scale;
     public GameObject playerPrefab;
     public GameObject targetPrefab;
     public GameObject prefab;
-    public GameObject player;
-    public GameObject target;
+    public float offsetX;
+    public float offsetY;
     public float playerHeight;
     public float itemHeight;
-    public float speed;
+
+    public Cell[,] grid;
+    public Vector2 playerCell = new Vector2(0,0); 
+    public Vector2 targetCell = new Vector2(4,4); 
+
+    public GameObject player;
+    public GameObject target;
 
     public static Grid Instance { get; private set; }
     
@@ -32,39 +35,52 @@ public class Grid : MonoBehaviour
         }
 
         Instance = this;
+        grid = new Cell[width, height];
+        ApplyVisualSettings();
     }
-    public void Start()
-    {
-        CreateGrid();
-        player = SpawnItem(playerCell, playerPrefab);
-        target = SpawnItem(targetPos, targetPrefab);
-    }  
 
     public void Spawn()
-    {
+    {   
+        ApplyVisualSettings();
         CreateGrid();
         player = SpawnItem(playerCell, playerPrefab);
-        target = SpawnItem(targetPos, targetPrefab);
+        target = SpawnItem(targetCell, targetPrefab);
     }
+
     public void CreateGrid()
     {
-        cells = new Cell[width, height];
-
+        grid = new Cell[width, height];
         for (int x = 0; x < width; x++)
         {
             for (int y = 0; y < height; y++)
             {   
                 Cell cell =  new Cell(x,y);
-                cells[x, y] = cell;
-
+                grid[x, y] = cell;
+                
                 SpawnCell(cell);
             }
         }
     }
 
+    // public void CreateLevel()
+    // {   
+    //     for (int x = 0; x < width; x++)
+    //     {
+    //         for (int y = 0; y < height; y++)
+    //         {   
+    //             if (grid[x,y].isEnabled) 
+    //             {
+    //                 SpawnCell(grid[x,y]);
+    //             }
+    //         }
+    //     }
+    //     player = SpawnItem(playerCell, playerPrefab);
+    //     target = SpawnItem(targetCell, targetPrefab);
+    // }
+
     public Cell GetCell(Vector2 pos)
     {
-        return cells[(int)pos.x, (int)pos.y];
+        return grid[(int)pos.x, (int)pos.y];
     }
 
     public void MovePlayer(Vector2 dir)
@@ -72,9 +88,13 @@ public class Grid : MonoBehaviour
         Vector2 newCell = playerCell + dir;
 
         if (InBounds(newCell) && GetCell(newCell).isEnabled)
-        {
+        {   
+            if (newCell == targetCell) 
+            {
+                Debug.Log("You Won");
+            }
+
             DropCell(GetCell(playerCell));
-            // MovePlayerGameObject(newCell);
             Assemble(new Vector3(dir.x, 0, dir.y)); 
             playerCell = newCell;
         }
@@ -106,30 +126,19 @@ public class Grid : MonoBehaviour
         return instance;
     }
 
-    public void MovePlayerGameObject(Vector2 newCell)
-    {   
-        Vector3 newPosition = new Vector3(newCell.x * offsetX, playerHeight, newCell.y * offsetY);
-        float time = 0;
-
-        while (time < 1)
-        {
-            player.transform.position = Vector3.Lerp(player.transform.position, newPosition, time);
-            time += Time.deltaTime * speed;
-        }  
-    }
-
     public void DropCell(Cell cell)
     {   
         cell.isEnabled = false;
         cell.visualizer.ActivateGravity();
     }
-    
+
     public float _rollSpeed = 5;
+
     void Assemble(Vector3 dir) 
     {
-            var anchor = player.transform.position + (Vector3.down + dir) * (offsetX/2) ;
-            var axis = Vector3.Cross(Vector3.up, dir);
-            StartCoroutine(Roll(anchor, axis));
+        var anchor = player.transform.position + (Vector3.down + dir) * (offsetX/2) ;
+        var axis = Vector3.Cross(Vector3.up, dir);
+        StartCoroutine(Roll(anchor, axis));
     }
     
     private IEnumerator Roll(Vector3 anchor, Vector3 axis) {
@@ -139,6 +148,18 @@ public class Grid : MonoBehaviour
             yield return new WaitForSeconds(0.01f);
         }
         // _isMoving = false;
+    }
+
+    public void ApplyVisualSettings()
+    {
+        scale = visualSettings.scale;
+        playerPrefab = visualSettings.playerPrefab;
+        targetPrefab = visualSettings.targetPrefab;
+        prefab = visualSettings.prefab;
+        offsetX = visualSettings.offsetX;
+        offsetY = visualSettings.offsetY;
+        playerHeight = visualSettings.playerHeight;
+        itemHeight = visualSettings.itemHeight;
     }
 
 }
