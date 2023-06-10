@@ -22,18 +22,21 @@ public class CellVisualizerEditor : Editor {
 
         EditorGUILayout.Space();
 
-        if (GUILayout.Button("Button")) {
-            cellVisualizer.IsButton();
-        }
-
         if (GUILayout.Button("Is Glass")) {
             cellVisualizer.IsGlass(true);
+        }
+
+        EditorGUILayout.Space();
+
+        if (GUILayout.Button("Morphing Button")) {
+            cellVisualizer.IsButton();
         }
 
         if (GUILayout.Button("Is Morphable")) {
             cellVisualizer.IsMorphable();
         }
-        if (GUILayout.Button("toggle Morph size")) {
+
+        if (GUILayout.Button("Toggle Morph size")) {
             cellVisualizer.ToggleSize();;
         }
     }

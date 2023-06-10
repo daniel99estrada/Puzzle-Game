@@ -1,7 +1,7 @@
 using UnityEngine;
 [System.Serializable]
-public class Cell {
-    
+public class Cell 
+{
     public bool isEnabled;
     public bool isBlock;
     public bool isGlass;
@@ -12,6 +12,7 @@ public class Cell {
     public GameObject cellGameObject;
     public Vector3 position;
     public Vector3 scale;
+    public Vector2 vector;
     public MeshRenderer renderer;
     public int x;
     public int y;
@@ -21,6 +22,7 @@ public class Cell {
         y = _y;
         isEnabled = true;
         isBlock = false;
+        vector = new Vector2(x, y);
     }
 
     public void DropCell()

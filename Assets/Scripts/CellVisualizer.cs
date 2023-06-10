@@ -7,10 +7,7 @@ public class CellVisualizer : MonoBehaviour {
     private MeshRenderer meshRenderer;
 
     public Cell gridCell;
-    public int morphIndex;
-    public bool fullSize;
-    public float buttonHeight = 0.5f;
-    public bool morphable;
+    
 
     private float smallHeight = 0.45f;
     private float normalHeight = 0f;
@@ -18,7 +15,9 @@ public class CellVisualizer : MonoBehaviour {
     private Vector3 normalSize = new Vector3(1f, 1f, 1f);
 
     
-    public float lerpSpeed = 2f;
+    private float lerpSpeed = 2f;
+    
+    public int morphIndex;
 
     public void SaveCell()
     {   
@@ -30,7 +29,7 @@ public class CellVisualizer : MonoBehaviour {
         
         Grid.Instance.grid[gridCell.x, gridCell.y] = gridCell;
         
-        if (morphable) 
+        if (gridCell.isMorphable) 
         {
             Grid.Instance.AddToMorphableList(morphIndex, this);
         }
@@ -58,7 +57,7 @@ public class CellVisualizer : MonoBehaviour {
 
     public void IsGlass(bool enabled) {
         meshRenderer = GetComponent<MeshRenderer>();
-        meshRenderer.material = Grid.Instance.glassMaterial;
+        meshRenderer.material = Grid.Instance.visualSettings.glassMaterial;
         gridCell.isGlass = enabled;
     }
 
@@ -104,7 +103,7 @@ public class CellVisualizer : MonoBehaviour {
 
     public IEnumerator LerpSizeAndPosition()
     {   
-        fullSize = gridCell.isEnabled;
+        bool fullSize = gridCell.isEnabled;
 
         Vector3 startSize = fullSize ? smallSize : normalSize;
         Vector3 endSize = fullSize ? normalSize : smallSize;

@@ -13,11 +13,23 @@ MonoBehaviour:
   m_Name: VisualSettings
   m_EditorClassIdentifier: 
   scale: 1
-  playerPrefab: {fileID: 8625139702122873980, guid: cc542945c679d224fa91c99b85425a9e,
-    type: 3}
-  targetPrefab: {fileID: 8625139702122873980, guid: 395773aa5f1613e4498ccfb8859c7770,
-    type: 3}
-  prefab: {fileID: 8625139702122873980, guid: 7d512464e0152f54da9caf4d26ddf07c, type: 3}
+  prefabList:
+  - tag: player
+    prefab: {fileID: 8625139702122873980, guid: cc542945c679d224fa91c99b85425a9e,
+      type: 3}
+    height: 1
+  - tag: target
+    prefab: {fileID: 8625139702122873980, guid: 395773aa5f1613e4498ccfb8859c7770,
+      type: 3}
+    height: 1
+  - tag: button
+    prefab: {fileID: 7549093562077910876, guid: d28a6455d80d8c44ea9250dbc2709d49,
+      type: 3}
+    height: 0.6
+  - tag: cell
+    prefab: {fileID: 8625139702122873980, guid: 7d512464e0152f54da9caf4d26ddf07c,
+      type: 3}
+    height: 0
   offsetX: 1.1
   offsetY: 1.1
   playerHeight: 1
@@ -26,3 +38,4 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 59548a2fbc940fb48a13041ebc90389d, type: 2}
   - {fileID: 2100000, guid: 703e13afb266b7c469836ba1ca010b60, type: 2}
   - {fileID: 2100000, guid: 101adc1cb864dbe439bdae7e256dd393, type: 2}
+  glassMaterial: {fileID: 2100000, guid: 20ff3e40378ad6e44989ee3e9a54a29d, type: 2}
