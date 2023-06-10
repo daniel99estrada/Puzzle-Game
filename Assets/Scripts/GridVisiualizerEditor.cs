@@ -15,7 +15,12 @@ public class GridVisualizerEditor : Editor {
         if (GUILayout.Button("Create Grid Visual")) {
             gridVisualizer.Spawn();
         }
-
+        if (GUILayout.Button("Save Level Grid")) {
+            gridVisualizer.SaveLevelgrid();
+        }
+        if (GUILayout.Button("Load Level Grid")) {
+            gridVisualizer.LoadLevelgrid();
+        }
         // EditorGUILayout.Space();
 
         // EditorGUILayout.LabelField("Grid Visualization", EditorStyles.boldLabel);

@@ -22,3 +22,7 @@ MonoBehaviour:
   offsetY: 1.1
   playerHeight: 1
   itemHeight: 1
+  materials:
+  - {fileID: 2100000, guid: 59548a2fbc940fb48a13041ebc90389d, type: 2}
+  - {fileID: 2100000, guid: 703e13afb266b7c469836ba1ca010b60, type: 2}
+  - {fileID: 2100000, guid: 101adc1cb864dbe439bdae7e256dd393, type: 2}

@@ -1,5 +1,7 @@
-using UnityEditor;
 using UnityEngine;
+using UnityEditor;
+using System.Collections;
+using System.Collections.Generic;
 
 [CustomEditor(typeof(CellVisualizer))]
 public class CellVisualizerEditor : Editor {
@@ -20,12 +22,19 @@ public class CellVisualizerEditor : Editor {
 
         EditorGUILayout.Space();
 
-        if (GUILayout.Button("It is not block")) {
-            cellVisualizer.IsBlock(false);
+        if (GUILayout.Button("Button")) {
+            cellVisualizer.IsButton();
         }
 
-        if (GUILayout.Button("Is Block")) {
-            cellVisualizer.IsBlock(true);
+        if (GUILayout.Button("Is Glass")) {
+            cellVisualizer.IsGlass(true);
+        }
+
+        if (GUILayout.Button("Is Morphable")) {
+            cellVisualizer.IsMorphable();
+        }
+        if (GUILayout.Button("toggle Morph size")) {
+            cellVisualizer.ToggleSize();;
         }
     }
 }
