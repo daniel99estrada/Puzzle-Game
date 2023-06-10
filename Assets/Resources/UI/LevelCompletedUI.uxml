@@ -1,0 +1,12 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:VisualElement style="flex-grow: 1; justify-content: center; background-color: rgba(0, 0, 0, 0); align-items: center; flex-direction: column;">
+        <ui:VisualElement>
+            <ui:Label text="LEVEL &#10;COMPLETED" display-tooltip-when-elided="true" style="-unity-text-align: upper-center; font-size: 40px;" />
+        </ui:VisualElement>
+        <ui:VisualElement style="flex-direction: row; height: 91px; width: 299px; justify-content: center; align-items: stretch; flex-wrap: nowrap;">
+            <ui:Button display-tooltip-when-elided="true" name="RestartButton" style="background-image: url(&apos;project://database/Packages/com.unity.collab-proxy/Editor/PlasticSCM/Assets/Images/d_refresh@2x.png?fileID=2800000&amp;guid=602b72d4617c3694aa94419fc1b68e04&amp;type=3#d_refresh@2x&apos;); height: auto; width: auto; flex-grow: 1; flex-shrink: 1; -unity-text-outline-width: 20px; margin-left: 20px; margin-right: 20px; margin-top: 20px; margin-bottom: 20px;" />
+            <ui:Button display-tooltip-when-elided="true" name="PlayButton" style="background-image: url(&apos;project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=-4521532143779581420&amp;guid=fb15c62d68efe9b4aa2fd87736ae8ebd&amp;type=3#arrow-right&apos;); height: auto; width: auto; flex-grow: 1; flex-shrink: 1; margin-left: 20px; margin-right: 20px; margin-top: 20px; margin-bottom: 20px;" />
+            <ui:Button display-tooltip-when-elided="true" name="HomeButton" style="background-image: url(&apos;project://database/Packages/com.unity.textmeshpro/Editor%20Resources/Textures/btn_AlignFlush.psd?fileID=2800000&amp;guid=691475c57a824010be0c6f474caeb7e1&amp;type=3#btn_AlignFlush&apos;); flex-grow: 1; flex-shrink: 1; margin-left: 20px; margin-right: 20px; margin-top: 20px; margin-bottom: 20px;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

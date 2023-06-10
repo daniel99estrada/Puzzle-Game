@@ -7,8 +7,7 @@ public class Grid : MonoBehaviour
 {
     [Header("Settings")]
     public VisualSettingsScriptableObject visualSettings;
-    [SerializeField]
-    private GridSettingsScriptableObject gridSettings;
+    public GridSettingsScriptableObject gridSettings;
 
     [Header("Grid Dimensions")]
     public int width;
@@ -43,6 +42,8 @@ public class Grid : MonoBehaviour
 
     public static Grid Instance { get; private set; }
     
+    public event Action OnReachedTarget;
+
     private void Awake()
     {   
         LoadLevelgrid();
@@ -169,6 +170,7 @@ public class Grid : MonoBehaviour
             if (newCell == targetCell) 
             {
                 Debug.Log("You Won");
+                OnReachedTarget?.Invoke();
             }
 
             if (GetCell(playerCell).isGlass)

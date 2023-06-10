@@ -1,0 +1,9 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:VisualElement style="flex-grow: 1; display: flex; background-color: rgba(238, 238, 238, 0);">
+        <ui:VisualElement style="height: 125px; background-color: rgba(132, 66, 66, 0); flex-direction: row; flex-wrap: nowrap; justify-content: space-around; align-items: flex-start; margin-top: 20px;">
+            <ui:Button display-tooltip-when-elided="true" name="RestartButton" style="background-image: url(&apos;project://database/Packages/com.unity.collab-proxy/Editor/PlasticSCM/Assets/Images/d_refresh@2x.png?fileID=2800000&amp;guid=602b72d4617c3694aa94419fc1b68e04&amp;type=3#d_refresh@2x&apos;); opacity: 1; height: 37px; width: 49px; background-color: rgb(255, 255, 255);" />
+            <ui:Label text="LEVEL" display-tooltip-when-elided="true" name="LevelLabel" focusable="true" style="font-size: 40px; -unity-font-style: normal; -unity-text-align: upper-center;" />
+            <ui:Button display-tooltip-when-elided="true" style="background-image: url(&apos;project://database/Packages/com.unity.textmeshpro/Editor%20Resources/Textures/btn_AlignFlush.psd?fileID=2800000&amp;guid=691475c57a824010be0c6f474caeb7e1&amp;type=3#btn_AlignFlush&apos;); height: 39px; width: 47px;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
