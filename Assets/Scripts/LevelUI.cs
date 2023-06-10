@@ -22,7 +22,7 @@ public class LevelUI : MonoBehaviour
         // Add a click event handler to the restart button
         restartButton.clicked += RestartLevel;
 
-        Grid.Instance.OnReachedTarget += ClearUI;
+        Grid.Instance.OnReachedTarget += DisableUI;
     }
 
     private void UpdateLevelText()
@@ -37,8 +37,16 @@ public class LevelUI : MonoBehaviour
         UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex);
     }
 
-    public void ClearUI()
+    private void EnableUI()
     {
-        uiDocument.rootVisualElement.Clear();
+        // Clear the UI before loading the new screen
+        uiDocument.enabled = true;
+
+    }
+
+    private void DisableUI()
+    {
+        // Clear the root visual element of the UIDocument to remove all UI elements
+        uiDocument.enabled = false;
     }
 }

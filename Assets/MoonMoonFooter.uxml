@@ -1,0 +1,17 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:VisualElement style="flex-grow: 1; flex-direction: row; justify-content: space-between; align-items: stretch; margin-left: 20px; margin-right: 20px; margin-top: 20px; margin-bottom: 20px;">
+        <ui:VisualElement>
+            <ui:Label text="Moon Moon " display-tooltip-when-elided="true" style="font-size: 34px;" />
+            <ui:Label text="2023&#10;" display-tooltip-when-elided="true" style="font-size: 12px;" />
+            <ui:VisualElement style="align-items: flex-start; flex-direction: row;">
+                <ui:Button text="Button" display-tooltip-when-elided="true" />
+                <ui:Button text="Button" display-tooltip-when-elided="true" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement style="flex-direction: column; padding-right: 10px;">
+            <ui:Label text="Label" display-tooltip-when-elided="true" />
+            <ui:Label text="Label" display-tooltip-when-elided="true" />
+            <ui:Label text="Label" display-tooltip-when-elided="true" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

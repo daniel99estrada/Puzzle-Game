@@ -60,17 +60,12 @@ public class Grid : MonoBehaviour
         Instance = this;
     }
 
-    void DestroyGridContainer()
+    public void DestroyCells()
     {
-        GameObject gridContainer = GameObject.Find("Grid Container"); // Find the "Grid Container" GameObject by name
-
-        if (gridContainer != null) // Check if the "Grid Container" GameObject exists
+        int childCount = transform.childCount;
+        for (int i = childCount - 1; i >= 0; i--)
         {
-#if UNITY_EDITOR
-            DestroyImmediate(gridContainer); // Destroy the "Grid Container" GameObject immediately in the editor
-#else
-            Destroy(gridContainer); // Destroy the "Grid Container" GameObject normally outside of the editor
-#endif
+            GameObject.Destroy(transform.GetChild(i).gameObject);
         }
     }
 
@@ -89,7 +84,7 @@ public class Grid : MonoBehaviour
     public void LoadLevelgrid()
     {   
         InitializeSingleton();
-        DestroyGridContainer();
+        DestroyCells();
         grid = new CellArray2D(width, height);
         GridContainer = new GameObject("Grid Container");
         morphCellDict = new Dictionary <int, List<CellVisualizer>>();
@@ -111,27 +106,10 @@ public class Grid : MonoBehaviour
         target = SpawnItem("target", targetCell);
     }
 
-    private void PopulateDictionary()
-    {
-        prefabDictionary.Clear();
-
-        foreach (PrefabObject prefab in visualSettings.prefabList)
-        {
-            if (!prefabDictionary.ContainsKey(prefab.tag))
-            {
-                prefabDictionary.Add(prefab.tag, prefab);
-            }
-            else
-            {
-                Debug.LogWarning("Prefab tag " + prefab.tag + " already exists in the dictionary.");
-            }
-        }
-    }
-
     public void Spawn()
     {   
         InitializeSingleton();
-        DestroyGridContainer();
+        DestroyCells();
         GridContainer = new GameObject("Grid Container");
         ApplyVisualSettings();
         PopulateDictionary();
@@ -156,6 +134,23 @@ public class Grid : MonoBehaviour
         }
     }
 
+    private void PopulateDictionary()
+    {
+        prefabDictionary.Clear();
+
+        foreach (PrefabObject prefab in visualSettings.prefabList)
+        {
+            if (!prefabDictionary.ContainsKey(prefab.tag))
+            {
+                prefabDictionary.Add(prefab.tag, prefab);
+            }
+            else
+            {
+                Debug.LogWarning("Prefab tag " + prefab.tag + " already exists in the dictionary.");
+            }
+        }
+    }
+
     public Cell GetCell(Vector2 pos)
     {
         return grid[(int)pos.x, (int)pos.y];
@@ -169,7 +164,6 @@ public class Grid : MonoBehaviour
         {   
             if (newCell == targetCell) 
             {
-                Debug.Log("You Won");
                 OnReachedTarget?.Invoke();
             }
 
@@ -199,7 +193,6 @@ public class Grid : MonoBehaviour
             foreach (CellVisualizer cell in cells)
             {   
                 cell.ToggleSize();
-                Debug.Log("toggle cell");
             }
         }
         else
@@ -227,7 +220,7 @@ public class Grid : MonoBehaviour
         {
             PrefabObject prefab = prefabDictionary[tag];
             Vector3 position = new Vector3(pos.x * offsetX, prefab.height, pos.y * offsetY);
-            GameObject instance = Instantiate(prefab.prefab, position, Quaternion.identity, GridContainer.transform);
+            GameObject instance = Instantiate(prefab.prefab, position, Quaternion.identity, transform);
             return instance;
         }
         else
@@ -251,8 +244,6 @@ public class Grid : MonoBehaviour
 
     public void ApplyVisualSettings()
     {
-        // Applying visual settings to the grid
-        // scale = visualSettings.scale;
         offsetX = visualSettings.offsetX;
         offsetY = visualSettings.offsetY;
         materials = visualSettings.materials;

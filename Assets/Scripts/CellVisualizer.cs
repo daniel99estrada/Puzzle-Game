@@ -16,7 +16,7 @@ public class CellVisualizer : MonoBehaviour {
 
     
     private float lerpSpeed = 2f;
-    
+
     public int morphIndex;
 
     public void SaveCell()
@@ -33,11 +33,6 @@ public class CellVisualizer : MonoBehaviour {
         {
             Grid.Instance.AddToMorphableList(morphIndex, this);
         }
-    }
-
-    void Start ()
-    {
-        // LoadSettings();    
     }
 
     public void LoadSettings()

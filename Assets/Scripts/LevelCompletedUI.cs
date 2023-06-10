@@ -11,7 +11,6 @@ public class LevelCompletedUI : MonoBehaviour
 
     private void Start()
     {   
-        ClearUI();
         // Assign the UIDocument component
         uiDocument = GetComponent<UIDocument>();
 
@@ -21,7 +20,7 @@ public class LevelCompletedUI : MonoBehaviour
         homeButton = uiDocument.rootVisualElement.Q<Button>("HomeButton");
 
         // Subscribe to the OnReachedTarget event from the Grid singleton
-        Grid.Instance.OnReachedTarget += LoadUI;
+        Grid.Instance.OnReachedTarget += EnableUI;
 
         // Add click event handlers to the buttons
         restartButton.clicked += RestartLevel;
@@ -29,23 +28,17 @@ public class LevelCompletedUI : MonoBehaviour
         homeButton.clicked += OpenMenu;
     }
 
-    private void LoadUI()
+    private void EnableUI()
     {
         // Clear the UI before loading the new screen
-        ClearUI();
+        uiDocument.enabled = true;
 
-        // Load the UXML asset for the level completed screen
-        VisualTreeAsset visualTree = Resources.Load<VisualTreeAsset>("UI/LevelCompletedUI");
-
-        // Clone the UXML and attach it to the root visual element of the UIDocument
-        VisualElement levelCompletedScreen = visualTree.CloneTree();
-        uiDocument.rootVisualElement.Add(levelCompletedScreen);
     }
 
-    private void ClearUI()
+    private void DisableUI()
     {
         // Clear the root visual element of the UIDocument to remove all UI elements
-        uiDocument.rootVisualElement.Clear();
+        uiDocument.enabled = false;
     }
 
     private void RestartLevel()
