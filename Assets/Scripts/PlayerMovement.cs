@@ -31,6 +31,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnDisable()
     {
+        if (playerInput != null)
+            playerInput.Disable();
         playerInput.Disable();
     }
 

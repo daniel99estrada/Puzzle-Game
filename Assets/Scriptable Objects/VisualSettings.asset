@@ -36,6 +36,6 @@ MonoBehaviour:
   itemHeight: 1
   materials:
   - {fileID: 2100000, guid: 59548a2fbc940fb48a13041ebc90389d, type: 2}
-  - {fileID: 2100000, guid: 703e13afb266b7c469836ba1ca010b60, type: 2}
-  - {fileID: 2100000, guid: 101adc1cb864dbe439bdae7e256dd393, type: 2}
+  - {fileID: 2100000, guid: eb8f3e54dcb60f84f92143ff71d23d7c, type: 2}
+  - {fileID: 2100000, guid: b1e9089249eaecc488957df92690ca3c, type: 2}
   glassMaterial: {fileID: 2100000, guid: 20ff3e40378ad6e44989ee3e9a54a29d, type: 2}
