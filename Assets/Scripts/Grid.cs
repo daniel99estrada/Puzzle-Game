@@ -97,6 +97,7 @@ public class Grid : MonoBehaviour
         morphCellDict = new Dictionary <int, List<CellVisualizer>>();
         PopulateDictionary();
         ApplyVisualSettings();
+        
 
         grid = gridSettings.grid;
         playerCell = gridSettings.playerCell;
@@ -262,4 +263,6 @@ public void AddToMorphableList(int key, CellVisualizer cellVisualizer)
         offsetY = visualSettings.offsetY;
         materials = visualSettings.materials;
     }
+
+
 }
