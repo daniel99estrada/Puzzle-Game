@@ -62,16 +62,18 @@ public class CellVisualizer : MonoBehaviour {
         {
             IsGlass(gridCell.isGlass);
         }
-        
+
         if (gridCell.isButton)
-        {
+        {   
+            morphIndex = gridCell.morphIndex;
             IsButton();
         }
         
         if (gridCell.isMorphable)
-        {
+        {   
+            morphIndex = gridCell.morphIndex;
+            Grid.Instance.AddToMorphableList(gridCell.morphIndex, this);
             IsMorphable();
-            Grid.Instance.AddToMorphableList(morphIndex, this);
         }
         else
         {
@@ -92,6 +94,7 @@ public class CellVisualizer : MonoBehaviour {
     {   
         meshRenderer = GetComponent<MeshRenderer>();
         meshRenderer.material = Grid.Instance.visualSettings.materials[morphIndex];   
+        gridCell.morphIndex = morphIndex;
         gridCell.isMorphable = true; 
         StartCoroutine(LerpSizeAndPosition());
     }

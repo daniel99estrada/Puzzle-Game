@@ -59,7 +59,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _AmbientCol: 0.217
+    - _AmbientCol: 0.149
     - _BumpScale: 1
     - _Clipped: 0
     - _ColBright: 0
@@ -73,10 +73,10 @@ Material:
     - _Lumin: 0
     - _MaxLight: 1
     - _Metallic: 0
-    - _MinLight: 0
+    - _MinLight: 1
     - _Mode: 0
     - _OcclusionStrength: 1
-    - _Offset: 0
+    - _Offset: -0.36
     - _OtlWidth: 0
     - _Parallax: 0.02
     - _Segmented: 1

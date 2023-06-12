@@ -39,3 +39,5 @@ MonoBehaviour:
   - {fileID: 2100000, guid: eb8f3e54dcb60f84f92143ff71d23d7c, type: 2}
   - {fileID: 2100000, guid: b1e9089249eaecc488957df92690ca3c, type: 2}
   glassMaterial: {fileID: 2100000, guid: 20ff3e40378ad6e44989ee3e9a54a29d, type: 2}
+  cameraPosition: {x: 0, y: 0, z: 0}
+  cameraRotation: {x: 0, y: 0, z: 0}
