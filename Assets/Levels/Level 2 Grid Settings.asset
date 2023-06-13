@@ -28,7 +28,7 @@ MonoBehaviour:
       renderer: {fileID: 0}
       x: 0
       y: 0
-    - isEnabled: 1
+    - isEnabled: 0
       isBlock: 0
       isGlass: 0
       isMorphable: 0
@@ -45,13 +45,13 @@ MonoBehaviour:
     - isEnabled: 0
       isBlock: 0
       isGlass: 0
-      isMorphable: 1
+      isMorphable: 0
       isButton: 0
       morphIndex: 0
       visualizer: {fileID: 0}
       cellGameObject: {fileID: 0}
-      position: {x: 2.2, y: 0.07422603, z: 0}
-      scale: {x: 0.9340213, y: 0.85154796, z: 0.9340213}
+      position: {x: 2.2, y: 0, z: 0}
+      scale: {x: 1, y: 1, z: 1}
       vector: {x: 2, y: 0}
       renderer: {fileID: 0}
       x: 2
@@ -60,7 +60,7 @@ MonoBehaviour:
       isBlock: 0
       isGlass: 0
       isMorphable: 0
-      isButton: 1
+      isButton: 0
       morphIndex: 0
       visualizer: {fileID: 0}
       cellGameObject: {fileID: 0}
@@ -70,9 +70,9 @@ MonoBehaviour:
       renderer: {fileID: 0}
       x: 0
       y: 1
-    - isEnabled: 0
+    - isEnabled: 1
       isBlock: 0
-      isGlass: 1
+      isGlass: 0
       isMorphable: 0
       isButton: 0
       morphIndex: 0
@@ -84,25 +84,25 @@ MonoBehaviour:
       renderer: {fileID: 0}
       x: 1
       y: 1
-    - isEnabled: 1
+    - isEnabled: 0
       isBlock: 0
       isGlass: 0
-      isMorphable: 0
+      isMorphable: 1
       isButton: 0
       morphIndex: 0
       visualizer: {fileID: 0}
       cellGameObject: {fileID: 0}
-      position: {x: 2.2, y: 0, z: 1.1}
-      scale: {x: 1, y: 1, z: 1}
+      position: {x: 2.2, y: 0.45, z: 1.1}
+      scale: {x: 0.6, y: 0.1, z: 0.6}
       vector: {x: 2, y: 1}
       renderer: {fileID: 0}
       x: 2
       y: 1
-    - isEnabled: 0
+    - isEnabled: 1
       isBlock: 0
       isGlass: 0
       isMorphable: 0
-      isButton: 0
+      isButton: 1
       morphIndex: 0
       visualizer: {fileID: 0}
       cellGameObject: {fileID: 0}
@@ -112,7 +112,7 @@ MonoBehaviour:
       renderer: {fileID: 0}
       x: 0
       y: 2
-    - isEnabled: 1
+    - isEnabled: 0
       isBlock: 0
       isGlass: 0
       isMorphable: 0
@@ -144,4 +144,6 @@ MonoBehaviour:
     height: 3
   playerCell: {x: 0, y: 0}
   targetCell: {x: 2, y: 2}
-  level: 1
+  level: 2
+  cameraPosition: {x: 7.14, y: 6.82, z: -5}
+  cameraRotation: {x: 44.030003, y: 316.19998, z: -0.0030043388}

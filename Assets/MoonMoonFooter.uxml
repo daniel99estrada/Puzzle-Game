@@ -1,17 +1,17 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
-    <ui:VisualElement style="align-items: stretch; justify-content: flex-start;">
-        <ui:VisualElement name="About" style="background-color: rgba(255, 251, 211, 255); -unity-background-image-tint-color: rgb(255, 255, 255); flex-direction: column; align-items: stretch;">
+    <ui:VisualElement name="Body" style="align-items: stretch; justify-content: flex-start;">
+        <ui:VisualElement name="Games" style="background-color: rgb(255, 251, 211); -unity-background-image-tint-color: rgb(255, 255, 255); flex-direction: column; align-items: stretch; height: 555px; width: 1238px;">
             <ui:VisualElement name="game-title" style="margin-bottom: 20px; margin-left: 20px; margin-right: 20px; margin-top: 20px;">
                 <ui:Label text="Games" display-tooltip-when-elided="true" name="Games-title" style="font-size: 60px; -unity-text-align: upper-center;" />
             </ui:VisualElement>
-            <ui:VisualElement name="Game1" style="background-color: rgba(255, 210, 0, 0); height: 292px; flex-direction: row; justify-content: center; margin-left: 150px; margin-right: 150px; margin-top: 10px; margin-bottom: 10px; align-items: stretch;">
+            <ui:VisualElement name="Game1" style="background-color: rgba(255, 210, 0, 0); height: 292px; flex-direction: row; justify-content: center; margin-left: 150px; margin-right: 150px; margin-top: 20px; margin-bottom: 20px; align-items: stretch;">
                 <ui:VisualElement style="background-image: url(&apos;project://database/Packages/com.unity.inputsystem/InputSystem/Editor/Icons/d_Gamepad@4x.png?fileID=2800000&amp;guid=83438053370c84456a73f7f95ef821fb&amp;type=3#d_Gamepad@4x&apos;); width: 266px; height: 264px; flex-grow: 1; flex-basis: 50px;" />
                 <ui:VisualElement style="flex-basis: 140px; flex-grow: 1;">
                     <ui:Label text="Puzzle Game" display-tooltip-when-elided="true" style="font-size: 40px;" />
                     <ui:Label text="fdffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff" display-tooltip-when-elided="true" style="font-size: 20px; flex-basis: 60%; white-space: normal;" />
                 </ui:VisualElement>
             </ui:VisualElement>
-            <ui:VisualElement name="Game1" style="background-color: rgba(255, 210, 0, 0); height: 292px; flex-direction: row; justify-content: center; margin-left: 150px; margin-right: 150px; margin-top: 10px; margin-bottom: 10px; align-items: stretch;">
+            <ui:VisualElement name="Game1" style="background-color: rgba(255, 210, 0, 0); height: 421px; flex-direction: row; justify-content: center; margin-left: 150px; margin-right: 150px; margin-top: 20px; margin-bottom: 20px; align-items: stretch;">
                 <ui:VisualElement style="background-image: url(&apos;project://database/Packages/com.unity.inputsystem/InputSystem/Editor/Icons/d_Gamepad@4x.png?fileID=2800000&amp;guid=83438053370c84456a73f7f95ef821fb&amp;type=3#d_Gamepad@4x&apos;); width: 266px; height: 264px; flex-grow: 1; flex-basis: 50px;" />
                 <ui:VisualElement style="flex-basis: 140px; flex-grow: 1;">
                     <ui:Label text="Puzzle Game" display-tooltip-when-elided="true" style="font-size: 40px;" />
@@ -19,9 +19,9 @@
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="Footer" style="background-color: rgb(0, 0, 0); align-items: stretch;">
-            <ui:VisualElement style="flex-grow: 1; flex-direction: row; justify-content: space-between; align-items: stretch; margin-left: 20px; margin-right: 20px; margin-top: 20px; margin-bottom: 20px;">
-                <ui:VisualElement>
+        <ui:VisualElement name="Footer" style="background-color: rgb(0, 0, 0); align-items: stretch; flex-basis: 300px;">
+            <ui:VisualElement name="footer-container" style="flex-grow: 1; flex-direction: row; justify-content: space-between; align-items: stretch; margin-left: 20px; margin-right: 20px; margin-top: 20px; margin-bottom: 20px;">
+                <ui:VisualElement name="footer-left-container">
                     <ui:Label text="Moon Moon " display-tooltip-when-elided="true" style="font-size: 34px;" />
                     <ui:Label text="2023&#10;" display-tooltip-when-elided="true" style="font-size: 12px;" />
                     <ui:VisualElement style="align-items: flex-start; flex-direction: row;">
@@ -29,7 +29,7 @@
                         <ui:Button text="Button" display-tooltip-when-elided="true" />
                     </ui:VisualElement>
                 </ui:VisualElement>
-                <ui:VisualElement style="flex-direction: column; padding-right: 10px;">
+                <ui:VisualElement name="footer-right-container" style="flex-direction: column; padding-right: 10px;">
                     <ui:Label text="Label" display-tooltip-when-elided="true" />
                     <ui:Label text="Label" display-tooltip-when-elided="true" />
                     <ui:Label text="Label" display-tooltip-when-elided="true" />

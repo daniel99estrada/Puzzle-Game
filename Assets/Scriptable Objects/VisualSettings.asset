@@ -19,9 +19,9 @@ MonoBehaviour:
       type: 3}
     height: 1
   - tag: target
-    prefab: {fileID: 8625139702122873980, guid: 395773aa5f1613e4498ccfb8859c7770,
+    prefab: {fileID: 6171399728629858603, guid: a7aa87b4f7748a740b66945ab39eef04,
       type: 3}
-    height: 1
+    height: 0.6
   - tag: button
     prefab: {fileID: 7549093562077910876, guid: d28a6455d80d8c44ea9250dbc2709d49,
       type: 3}
@@ -39,5 +39,4 @@ MonoBehaviour:
   - {fileID: 2100000, guid: eb8f3e54dcb60f84f92143ff71d23d7c, type: 2}
   - {fileID: 2100000, guid: b1e9089249eaecc488957df92690ca3c, type: 2}
   glassMaterial: {fileID: 2100000, guid: 20ff3e40378ad6e44989ee3e9a54a29d, type: 2}
-  cameraPosition: {x: 0, y: 0, z: 0}
-  cameraRotation: {x: 0, y: 0, z: 0}
+  cellMaterial: {fileID: 2100000, guid: 70da81b1e25eb9048b3b51c52ffaa8bb, type: 2}
