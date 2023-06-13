@@ -97,6 +97,7 @@ public class Grid : MonoBehaviour
         morphCellDict = new Dictionary <int, List<CellVisualizer>>();
         PopulateDictionary();
         ApplyVisualSettings();
+        gridSettings.LoadCameraSettings();
         
 
         grid = gridSettings.grid;
