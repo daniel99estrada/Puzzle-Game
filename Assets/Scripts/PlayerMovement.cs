@@ -5,8 +5,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {   
-    public float speed;
     bool _isMoving;
+    public float _rollSpeed = 5;
 
     private PlayerInput playerInput;
 
@@ -42,8 +42,6 @@ public class PlayerMovement : MonoBehaviour
         if(_isMoving) return;
         Grid.Instance.MovePlayer(movementInput);
     }
-
-    public float _rollSpeed = 5;
 
     public void Assemble(Vector3 dir) 
     {   

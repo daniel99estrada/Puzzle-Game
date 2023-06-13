@@ -203,7 +203,6 @@ public class Grid : MonoBehaviour
             foreach (CellVisualizer cell in cells)
             {   
                 cell.ToggleSize();
-                Debug.Log("toggle cell");
             }
         }
         else

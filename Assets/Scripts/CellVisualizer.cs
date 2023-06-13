@@ -7,14 +7,12 @@ public class CellVisualizer : MonoBehaviour {
     private MeshRenderer meshRenderer;
 
     public Cell gridCell;
-    public GameObject button;
-    
+    private GameObject button;
 
     private float smallHeight = 0.45f;
     private float normalHeight = 0f;
     private Vector3 smallSize = new Vector3(0.6f, 0.1f, 0.6f);
     private Vector3 normalSize = new Vector3(1f, 1f, 1f);
-
     
     private float lerpSpeed = 2f;
 
@@ -23,7 +21,6 @@ public class CellVisualizer : MonoBehaviour {
     public void SaveCell()
     {   
         gridCell.renderer = GetComponent<MeshRenderer>();
-
         Transform sourceTransform = this.gameObject.GetComponent<Transform>();
         gridCell.position = sourceTransform.position;
         gridCell.scale = sourceTransform.localScale;
@@ -40,7 +37,6 @@ public class CellVisualizer : MonoBehaviour {
     {   
         MeshRenderer renderer = GetComponent<MeshRenderer>();
         renderer = gridCell.renderer;
-
         transform.position = gridCell.position;
         transform.localScale = gridCell.scale;
     }
@@ -52,6 +48,7 @@ public class CellVisualizer : MonoBehaviour {
     }
 
     public void IsGlass(bool enabled) {
+        
         meshRenderer = GetComponent<MeshRenderer>();
         if (enabled)
         {
@@ -69,20 +66,20 @@ public class CellVisualizer : MonoBehaviour {
     {
         if (gridCell.isGlass)
         {
-            IsGlass(gridCell.isGlass);
+            IsGlass(true);
         }
 
         if (gridCell.isButton)
         {   
             morphIndex = gridCell.morphIndex;
-            IsButton(gridCell.isButton);
+            IsButton(true);
         }
         
         if (gridCell.isMorphable)
         {   
             morphIndex = gridCell.morphIndex;
             Grid.Instance.AddToMorphableList(gridCell.morphIndex, this);
-            IsMorphable(gridCell.isMorphable);
+            IsMorphable(true);
         }
         else
         {
@@ -127,8 +124,6 @@ public class CellVisualizer : MonoBehaviour {
             StartCoroutine(LerpSizeAndPosition());
             meshRenderer.material = Grid.Instance.visualSettings.cellMaterial;
         }
-
-        
     }
 
     public IEnumerator LerpSizeAndPosition()
