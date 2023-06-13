@@ -70,10 +70,10 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _Lumin: 0.96
+    - _Lumin: 2
     - _MaxLight: 1
     - _Metallic: 0
-    - _MinLight: 1
+    - _MinLight: 0.9
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Offset: -1

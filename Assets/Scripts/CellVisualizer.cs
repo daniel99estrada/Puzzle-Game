@@ -7,6 +7,7 @@ public class CellVisualizer : MonoBehaviour {
     private MeshRenderer meshRenderer;
 
     public Cell gridCell;
+    public GameObject button;
     
 
     private float smallHeight = 0.45f;
@@ -52,7 +53,15 @@ public class CellVisualizer : MonoBehaviour {
 
     public void IsGlass(bool enabled) {
         meshRenderer = GetComponent<MeshRenderer>();
-        meshRenderer.material = Grid.Instance.visualSettings.glassMaterial;
+        if (enabled)
+        {
+            meshRenderer.material = Grid.Instance.visualSettings.glassMaterial;
+        }
+        else
+        {
+            meshRenderer.material = Grid.Instance.visualSettings.cellMaterial;
+        }
+        
         gridCell.isGlass = enabled;
     }
 
@@ -66,14 +75,14 @@ public class CellVisualizer : MonoBehaviour {
         if (gridCell.isButton)
         {   
             morphIndex = gridCell.morphIndex;
-            IsButton();
+            IsButton(gridCell.isButton);
         }
         
         if (gridCell.isMorphable)
         {   
             morphIndex = gridCell.morphIndex;
             Grid.Instance.AddToMorphableList(gridCell.morphIndex, this);
-            IsMorphable();
+            IsMorphable(gridCell.isMorphable);
         }
         else
         {
@@ -81,22 +90,45 @@ public class CellVisualizer : MonoBehaviour {
         }
     }
 
-    public void IsButton()
-    {   
-        Vector2 pos = new Vector2(gridCell.x, gridCell.y);
-        GameObject button = Grid.Instance.SpawnItem("button", pos);
-        gridCell.isButton = true;
-        gridCell.morphIndex = morphIndex;
-        button.GetComponent<MeshRenderer>().material = Grid.Instance.visualSettings.materials[morphIndex];
+    public void IsButton(bool enabled)
+    {                   
+        if (enabled)
+        {   
+            Vector2 pos = new Vector2(gridCell.x, gridCell.y);
+            button = Grid.Instance.SpawnItem("button", pos);
+            button.transform.SetParent(transform); 
+            
+            gridCell.morphIndex = morphIndex;
+            button.GetComponent<MeshRenderer>().material = Grid.Instance.visualSettings.materials[morphIndex];
+        }
+        else if (button != null)
+        {
+            Destroy(button);
+        }
+
+        gridCell.isButton = enabled;
     }
 
-    public void IsMorphable()
+    public void IsMorphable(bool enabled)
     {   
-        meshRenderer = GetComponent<MeshRenderer>();
-        meshRenderer.material = Grid.Instance.visualSettings.materials[morphIndex];   
-        gridCell.morphIndex = morphIndex;
-        gridCell.isMorphable = true; 
-        StartCoroutine(LerpSizeAndPosition());
+        gridCell.isMorphable = enabled;
+
+        if (enabled)
+        {
+            meshRenderer = GetComponent<MeshRenderer>();
+            meshRenderer.material = Grid.Instance.visualSettings.materials[morphIndex];   
+            gridCell.morphIndex = morphIndex;
+        
+            StartCoroutine(LerpSizeAndPosition());
+        }
+        else
+        {
+            gridCell.isEnabled = true;
+            StartCoroutine(LerpSizeAndPosition());
+            meshRenderer.material = Grid.Instance.visualSettings.cellMaterial;
+        }
+
+        
     }
 
     public IEnumerator LerpSizeAndPosition()

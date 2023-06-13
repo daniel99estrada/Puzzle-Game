@@ -14,4 +14,5 @@ public class VisualSettingsScriptableObject : ScriptableObject
     public float itemHeight;
     public List<Material> materials;
     public Material glassMaterial;
+    public Material cellMaterial;
 }

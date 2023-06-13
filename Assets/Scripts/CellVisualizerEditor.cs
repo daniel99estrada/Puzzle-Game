@@ -25,15 +25,26 @@ public class CellVisualizerEditor : Editor {
         if (GUILayout.Button("Is Glass")) {
             cellVisualizer.IsGlass(true);
         }
+        if (GUILayout.Button("Is not Glass")) {
+            cellVisualizer.IsGlass(false);
+        }
 
         EditorGUILayout.Space();
 
-        if (GUILayout.Button("Morphing Button")) {
-            cellVisualizer.IsButton();
+        if (GUILayout.Button("Is Morphing Button")) {
+            cellVisualizer.IsButton(true);
+        }
+        if (GUILayout.Button("Is not Morphing Button")) {
+            cellVisualizer.IsButton(false);
         }
 
+        EditorGUILayout.Space();
+
         if (GUILayout.Button("Is Morphable")) {
-            cellVisualizer.IsMorphable();
+            cellVisualizer.IsMorphable(true);
+        }
+        if (GUILayout.Button("Is not Morphable")) {
+            cellVisualizer.IsMorphable(false);
         }
 
         if (GUILayout.Button("Toggle Morph size")) {
