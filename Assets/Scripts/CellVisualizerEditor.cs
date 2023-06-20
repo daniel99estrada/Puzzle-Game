@@ -40,6 +40,15 @@ public class CellVisualizerEditor : Editor {
 
         EditorGUILayout.Space();
 
+        if (GUILayout.Button("Is Spike")) {
+            cellVisualizer.IsSpike(true);
+        }
+        if (GUILayout.Button("Is not Spike")) {
+            cellVisualizer.IsSpike(false);
+        }
+
+        EditorGUILayout.Space();
+
         if (GUILayout.Button("Is Morphable")) {
             cellVisualizer.IsMorphable(true);
         }

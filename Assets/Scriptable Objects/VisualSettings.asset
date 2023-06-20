@@ -30,6 +30,9 @@ MonoBehaviour:
     prefab: {fileID: 8625139702122873980, guid: 7d512464e0152f54da9caf4d26ddf07c,
       type: 3}
     height: 0
+  - tag: spike
+    prefab: {fileID: 601936866244967235, guid: f1f233d36c0d4b642b7c55ff9ab201be, type: 3}
+    height: 0.5
   offsetX: 1.1
   offsetY: 1.1
   playerHeight: 1

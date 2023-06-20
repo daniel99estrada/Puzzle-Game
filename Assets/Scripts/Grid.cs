@@ -74,7 +74,6 @@ public class Grid : MonoBehaviour
 #else
             Destroy(GridContainer); // Destroy the "Grid Container" GameObject normally outside of the editor
 #endif
-        Debug.Log("Destroying COntainer");
         }
 
         GridContainer = new GameObject("Grid Container");
@@ -189,6 +188,11 @@ public class Grid : MonoBehaviour
             if (GetCell(playerCell).isGlass)
             {
                 GetCell(playerCell).DropCell();
+            }
+
+            if (GetCell(playerCell).isSpike)
+            {
+                Debug.Log("You Lost");
             }
 
             player.GetComponent<PlayerMovement>().Assemble(new Vector3(dir.x, 0, dir.y)); 

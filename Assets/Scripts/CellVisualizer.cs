@@ -8,6 +8,7 @@ public class CellVisualizer : MonoBehaviour {
 
     public Cell gridCell;
     private GameObject button;
+    private GameObject spike;
     public Grid Grid;
 
     private float smallHeight = 0.45f;
@@ -70,6 +71,11 @@ public class CellVisualizer : MonoBehaviour {
             IsGlass(true);
         }
 
+        if (gridCell.isSpike)
+        {
+            IsSpike(true);
+        }
+
         if (gridCell.isButton)
         {   
             morphIndex = gridCell.morphIndex;
@@ -105,6 +111,23 @@ public class CellVisualizer : MonoBehaviour {
             
             gridCell.morphIndex = morphIndex;
             button.GetComponent<MeshRenderer>().material = Grid.visualSettings.materials[morphIndex];
+        }        
+    }
+
+    public void IsSpike(bool enabled)
+    {   
+        gridCell.isSpike = enabled;
+
+        if (spike != null)
+        {  
+            Destroy(spike);
+        }
+
+        if (enabled)
+        {   
+            Vector2 pos = new Vector2(gridCell.x, gridCell.y);
+            spike = Grid.SpawnItem("spike", pos);
+            spike.transform.SetParent(transform); 
         }        
     }
 

@@ -5,6 +5,7 @@ public class Cell
     public bool isEnabled;
     public bool isBlock;
     public bool isGlass;
+    public bool isSpike;
     public bool isMorphable;
     public bool isButton;
     public int morphIndex;
