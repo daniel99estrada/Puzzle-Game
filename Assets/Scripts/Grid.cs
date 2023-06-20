@@ -25,11 +25,10 @@ public class Grid : MonoBehaviour
     [Header("Materials")]
     private List<Material> materials;
 
-    [Header("Cell Dictionary")]
-    public Dictionary <int, List<CellVisualizer>> morphCellDict;
 
     [Header("Grid Container")]
-    private GameObject GridContainer;
+    public GameObject GridContainer;
+    public float cameraOffset;
 
     [Header("Grid")]
     public CellArray2D grid;
@@ -44,6 +43,8 @@ public class Grid : MonoBehaviour
     public event Action OnReachedTarget;
 
     public static Grid Instance { get; private set; }
+
+    // private GameObject GridContainer;
     
     private void Awake()
     {   
@@ -53,27 +54,37 @@ public class Grid : MonoBehaviour
 
     private void InitializeSingleton()
     {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
+        // if (Instance != null && Instance != this)
+        // {
+        //     Destroy(gameObject);
+        //     return;
+        // }
 
-        Instance = this;
+        // Instance = this;
     }
 
-    void DestroyGridContainer()
+    void SpawnGridContainer()
     {
-        GameObject gridContainer = GameObject.Find("Grid Container"); // Find the "Grid Container" GameObject by name
+        // GameObject gridContainer = GameObject.Find("Grid Container"); // Find the "Grid Container" GameObject by name
 
-        if (gridContainer != null) // Check if the "Grid Container" GameObject exists
+        if (GridContainer != null) // Check if the "Grid Container" GameObject exists
         {
 #if UNITY_EDITOR
-            DestroyImmediate(gridContainer); // Destroy the "Grid Container" GameObject immediately in the editor
+            DestroyImmediate(GridContainer); // Destroy the "Grid Container" GameObject immediately in the editor
 #else
-            Destroy(gridContainer); // Destroy the "Grid Container" GameObject normally outside of the editor
+            Destroy(GridContainer); // Destroy the "Grid Container" GameObject normally outside of the editor
 #endif
+        Debug.Log("Destroying COntainer");
         }
+
+        GridContainer = new GameObject("Grid Container");
+        GridContainer.transform.SetParent(transform);
+        // GridContainer.transform.localPosition = new Vector3(cameraOffset,0,0);
+        // transform.position = new Vector3(cameraOffset,0,0);
+        
+        
+        
+        
     }
 
     public void SaveLevelgrid()
@@ -91,15 +102,12 @@ public class Grid : MonoBehaviour
     public void LoadLevelgrid()
     {   
         InitializeSingleton();
-        DestroyGridContainer();
+        SpawnGridContainer();
         grid = new CellArray2D(width, height);
-        GridContainer = new GameObject("Grid Container");
-        morphCellDict = new Dictionary <int, List<CellVisualizer>>();
+        // morphCellDict = new Dictionary <int, List<CellVisualizer>>();
         PopulateDictionary();
         ApplyVisualSettings();
-        gridSettings.LoadCameraSettings();
         
-
         grid = gridSettings.grid;
         playerCell = gridSettings.playerCell;
         targetCell = gridSettings.targetCell;
@@ -112,6 +120,7 @@ public class Grid : MonoBehaviour
         }
 
         player = SpawnItem("player", playerCell);
+        player.GetComponent<PlayerMovement>().Grid = this;
         target = SpawnItem("target", targetCell);
     }
 
@@ -135,12 +144,12 @@ public class Grid : MonoBehaviour
     public void Spawn()
     {   
         InitializeSingleton();
-        DestroyGridContainer();
-        GridContainer = new GameObject("Grid Container");
+        SpawnGridContainer();
         ApplyVisualSettings();
         PopulateDictionary();
         CreateGrid();
         player = SpawnItem("player", playerCell);
+        player.GetComponent<PlayerMovement>().Grid = this;
         target = SpawnItem("target", targetCell);
     }
 
@@ -188,28 +197,11 @@ public class Grid : MonoBehaviour
 
             if (GetCell(playerCell).isButton)
             {   
-                ToggleCellSizes(GetCell(playerCell).morphIndex);
+                GridManager.Instance.ToggleCellSizes(GetCell(playerCell).morphIndex);
             }
         }
-        return;
     }
 
-    public void ToggleCellSizes(int tag)
-    {
-        if (morphCellDict != null && morphCellDict.ContainsKey(tag))
-        {
-            List<CellVisualizer> cells = morphCellDict[tag];
-
-            foreach (CellVisualizer cell in cells)
-            {   
-                cell.ToggleSize();
-            }
-        }
-        else
-        {
-            Debug.LogWarning("No cells found for tag " + tag);
-        }
-    }
 
     public bool InBounds(Vector2 position)
     {
@@ -222,6 +214,7 @@ public class Grid : MonoBehaviour
         visualizer.gridCell = cell;
         cell.visualizer = visualizer;
         cell.cellGameObject = instance;
+        visualizer.Grid = this;
     }
 
     public GameObject SpawnItem(string tag, Vector2 pos)
@@ -229,7 +222,7 @@ public class Grid : MonoBehaviour
         if (prefabDictionary.ContainsKey(tag))
         {
             PrefabObject prefab = prefabDictionary[tag];
-            Vector3 position = new Vector3(pos.x * offsetX, prefab.height, pos.y * offsetY);
+            Vector3 position = new Vector3(cameraOffset + pos.x * offsetX, prefab.height, pos.y * offsetY);
             GameObject instance = Instantiate(prefab.prefab, position, Quaternion.identity, GridContainer.transform);
             return instance;
         }
@@ -240,20 +233,6 @@ public class Grid : MonoBehaviour
         }
     }
 
-public void AddToMorphableList(int key, CellVisualizer cellVisualizer)
-{
-    if (morphCellDict == null)
-        morphCellDict = new Dictionary<int, List<CellVisualizer>>();
-
-    if (morphCellDict.ContainsKey(key))
-    {
-        morphCellDict[key].Add(cellVisualizer);
-    }
-    else
-    {
-        morphCellDict[key] = new List<CellVisualizer> { cellVisualizer };
-    }
-}
 
     public void ApplyVisualSettings()
     {

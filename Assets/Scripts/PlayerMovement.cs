@@ -1,51 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {   
+    public Grid Grid;
     bool _isMoving;
     public float _rollSpeed = 5;
 
-    private PlayerInput playerInput;
-
-    public static PlayerMovement Instance { get; private set; }
-    
-    private void Awake()
+    public void Start ()
     {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-
-        Instance = this;
+        InputHandler.Instance.OnNewInput += Move;
     }
-    private void OnEnable()
+
+    private void Move(Vector2 movementInput)
     {   
-        playerInput = new PlayerInput();
-        playerInput.Input.Move.performed += Move;
-        playerInput.Enable();
-    }
-
-    private void OnDisable()
-    {
-        if (playerInput != null)
-            playerInput.Disable();
-        playerInput.Disable();
-    }
-
-    private void Move(InputAction.CallbackContext context)
-    {   
-        Vector2 movementInput = context.ReadValue<Vector2>();
-        if(_isMoving) return;
-        Grid.Instance.MovePlayer(movementInput);
+        Grid.MovePlayer(movementInput);
     }
 
     public void Assemble(Vector3 dir) 
     {   
-        var anchor = transform.position + (Vector3.down + dir) * (Grid.Instance.offsetX/2) ;
+        var anchor = transform.position + (Vector3.down + dir) * (Grid.offsetX/2) ;
         var axis = Vector3.Cross(Vector3.up, dir);
         StartCoroutine(Roll(anchor, axis));
     }
