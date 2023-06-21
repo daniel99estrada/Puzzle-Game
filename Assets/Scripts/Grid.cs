@@ -127,6 +127,7 @@ public class Grid : MonoBehaviour
                 
                 GameObject cellGO = SpawnItem("cell", cell.vector);
                 BuildCell(cellGO, cell);
+                cell.visualizer.TransformCell();
             }
         }
 

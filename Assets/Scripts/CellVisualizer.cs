@@ -96,11 +96,21 @@ public class CellVisualizer : MonoBehaviour {
 
     public void IsButton(bool enabled)
     {   
+        if (Grid == null)
+        {
+            Debug.LogError("NullReferenceException: Cell's reference to grid has been lost. Create a new Grid.");
+            return;
+        }
+
         gridCell.isButton = enabled;
 
         if (button != null)
-        {  
-            Destroy(button);
+        {
+#if UNITY_EDITOR
+            DestroyImmediate(button); 
+#else
+            Destroy(button); 
+#endif
         }
 
         if (enabled)
@@ -116,11 +126,21 @@ public class CellVisualizer : MonoBehaviour {
 
     public void IsSpike(bool enabled)
     {   
+        if (Grid == null)
+        {
+            Debug.LogError("NullReferenceException: Cell's reference to grid has been lost. Create a new Grid.");
+            return;
+        }
+
         gridCell.isSpike = enabled;
 
         if (spike != null)
-        {  
-            Destroy(spike);
+        {
+#if UNITY_EDITOR
+            DestroyImmediate(spike); 
+#else
+            Destroy(spike); 
+#endif
         }
 
         if (enabled)
