@@ -70,20 +70,14 @@ public class Grid : MonoBehaviour
         if (GridContainer != null) // Check if the "Grid Container" GameObject exists
         {
 #if UNITY_EDITOR
-            DestroyImmediate(GridContainer); // Destroy the "Grid Container" GameObject immediately in the editor
+            DestroyImmediate(GridContainer); 
 #else
-            Destroy(GridContainer); // Destroy the "Grid Container" GameObject normally outside of the editor
+            Destroy(GridContainer); 
 #endif
         }
 
         GridContainer = new GameObject("Grid Container");
-        GridContainer.transform.SetParent(transform);
-        // GridContainer.transform.localPosition = new Vector3(cameraOffset,0,0);
-        // transform.position = new Vector3(cameraOffset,0,0);
-        
-        
-        
-        
+        GridContainer.transform.SetParent(transform);  
     }
 
     public void SaveLevelgrid()
@@ -100,22 +94,40 @@ public class Grid : MonoBehaviour
 
     public void LoadLevelgrid()
     {   
-        InitializeSingleton();
+        // InitializeSingleton();
         SpawnGridContainer();
-        grid = new CellArray2D(width, height);
         // morphCellDict = new Dictionary <int, List<CellVisualizer>>();
-        PopulateDictionary();
         ApplyVisualSettings();
+        PopulateDictionary();
+
+        
         
         grid = gridSettings.grid;
+
         playerCell = gridSettings.playerCell;
         targetCell = gridSettings.targetCell;
+        width = gridSettings.width;
+        height = gridSettings.height;
 
-        foreach (Cell cell in grid.cells)
-        {   
-            GameObject cellGO = SpawnItem("cell", cell.vector);
-            BuildCell(cellGO, cell);
-            cell.visualizer.TransformCell();
+        // foreach (Cell cell in gridSettings.grid)
+        // {   
+        //     GameObject cellGO = SpawnItem("cell", cell.vector);
+        //     BuildCell(cellGO, cell);
+        //     cell.visualizer.TransformCell();
+        // }
+
+        // grid = new CellArray2D(width, height);
+
+        for (int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {   
+                Cell cell = gridSettings.grid[x, y];
+                grid[x, y] = cell;
+                
+                GameObject cellGO = SpawnItem("cell", cell.vector);
+                BuildCell(cellGO, cell);
+            }
         }
 
         player = SpawnItem("player", playerCell);
@@ -142,7 +154,7 @@ public class Grid : MonoBehaviour
 
     public void Spawn()
     {   
-        InitializeSingleton();
+        // InitializeSingleton();
         SpawnGridContainer();
         ApplyVisualSettings();
         PopulateDictionary();
@@ -183,6 +195,7 @@ public class Grid : MonoBehaviour
             {
                 Debug.Log("You Won");
                 OnReachedTarget?.Invoke();
+                player.GetComponent<PlayerMovement>().DisableMovement();
             }
 
             if (GetCell(playerCell).isGlass)

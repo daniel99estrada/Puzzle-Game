@@ -15,6 +15,11 @@ public class PlayerMovement : MonoBehaviour
         InputHandler.Instance.OnNewInput += Move;
     }
 
+    public void DisableMovement()
+    {
+        InputHandler.Instance.OnNewInput -= Move;
+    }
+
     private void Move(Vector2 movementInput)
     {   
         Grid.MovePlayer(movementInput);

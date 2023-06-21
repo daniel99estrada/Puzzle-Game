@@ -5,9 +5,12 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Grid Settings", menuName = "ScriptableObjects/Grid Settings")]
 public class GridSettingsScriptableObject : ScriptableObject
 {    
+    [Header("Grid Dimensions")]
+    public int width;
+    public int height;
+
     [SerializeField]
     public CellArray2D grid;
-    // public Dictionary <int, List<CellVisualizer>> morphCellDict = new Dictionary <int, List<CellVisualizer>>();
     public Vector2 playerCell;
     public Vector2 targetCell;
     public int level;
@@ -46,9 +49,10 @@ public class GridSettingsScriptableObject : ScriptableObject
         }
     }
     public void SaveCurrentSettings(Grid _grid)
-    {
+    {   
+        width = _grid.width;
+        height = _grid.height;
         grid = _grid.grid;
-        // morphCellDict = _grid.morphCellDict;
         playerCell = _grid.playerCell;
         targetCell = _grid.targetCell;
         SaveCameraSettings();

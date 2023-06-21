@@ -145,7 +145,7 @@ public class CellVisualizer : MonoBehaviour {
         }
         else
         {
-            gridCell.isEnabled = true;
+            gridCell.isEnabled = false;
             StartCoroutine(LerpSizeAndPosition());
             meshRenderer.material = Grid.visualSettings.cellMaterial;
         }
