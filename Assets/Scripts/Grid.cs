@@ -33,9 +33,13 @@ public class Grid : MonoBehaviour
     [Header("Grid")]
     public CellArray2D grid;
 
+    public string levelTag;
+    public int level;
+    private IDataService DataService = new JsonDataService();
+
     [Header("Player and Target GameObjects")]
-    private GameObject player;
-    private GameObject target;
+    public GameObject player;
+    public GameObject target;
 
     [Header("Prefab Dictionary")]
     public Dictionary<string, PrefabObject> prefabDictionary = new Dictionary<string, PrefabObject>();
@@ -44,28 +48,27 @@ public class Grid : MonoBehaviour
 
     public static Grid Instance { get; private set; }
 
-    // private GameObject GridContainer;
+    GridManager gridManager;
     
-    private void Awake()
+    private void Start()
     {   
-        InitializeSingleton();
-        LoadLevelgrid();
+        grid = new CellArray2D(width, height);
+        // LoadLevelgrid();
+        player = SpawnItem("player", playerCell);
+        player.GetComponent<PlayerMovement>().Grid = this;
     }
 
-    private void InitializeSingleton()
+    private void GetManager()
     {
-        // if (Instance != null && Instance != this)
-        // {
-        //     Destroy(gameObject);
-        //     return;
-        // }
-
-        // Instance = this;
+        GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
+        if (playerObject != null)
+        {
+            gridManager = playerObject.GetComponent<GridManager>();
+        }
     }
 
     void SpawnGridContainer()
     {
-        // GameObject gridContainer = GameObject.Find("Grid Container"); // Find the "Grid Container" GameObject by name
 
         if (GridContainer != null) // Check if the "Grid Container" GameObject exists
         {
@@ -82,52 +85,61 @@ public class Grid : MonoBehaviour
 
     public void SaveLevelgrid()
     {   
-        InitializeSingleton();
-
         foreach (Cell cell in grid.cells)
         {   
-            cell.visualizer.SaveCell();
+            cell.gameObject.GetComponent<CellVisualizer>().SaveCell();
+        }
+        
+        gridSettings.SaveCurrentSettings(this);
+
+        if(DataService.SaveData("/" + levelTag + ".json", gridSettings, true))
+        {
+
+        }
+        else{
+            Debug.LogError("Could not save file! Show something on the UI about it!");
         }
 
-        gridSettings.SaveCurrentSettings(this);
+        // GetManager();
+        
+        // gridManager.gridSettings.SaveCurrentSettings(levelTag, this);
+
+        // gridSettings.width = width;
+        // gridSettings.height = height;
+        // gridSettings.grid = grid;
+        // gridSettings.playerCell = playerCell;
+        // gridSettings.targetCell = targetCell;
+
+        // 
     }
 
     public void LoadLevelgrid()
     {   
-        // InitializeSingleton();
         SpawnGridContainer();
-        // morphCellDict = new Dictionary <int, List<CellVisualizer>>();
         ApplyVisualSettings();
         PopulateDictionary();
-
         
-        
-        grid = gridSettings.grid;
+        // grid = gridSettings.grid;
+        // playerCell = gridSettings.playerCell;
+        // targetCell = gridSettings.targetCell;
+        // width = gridSettings.width;
+        // height = gridSettings.height;
 
-        playerCell = gridSettings.playerCell;
-        targetCell = gridSettings.targetCell;
-        width = gridSettings.width;
-        height = gridSettings.height;
+        // GetManager();
 
-        // foreach (Cell cell in gridSettings.grid)
-        // {   
-        //     GameObject cellGO = SpawnItem("cell", cell.vector);
-        //     BuildCell(cellGO, cell);
-        //     cell.visualizer.TransformCell();
-        // }
-
-        // grid = new CellArray2D(width, height);
+        gridSettings = DataService.LoadData<GridSettingsScriptableObject>("/" + levelTag + ".json", true);
+        gridSettings.RetrieveSettings(this);
 
         for (int x = 0; x < width; x++)
         {
             for (int y = 0; y < height; y++)
             {   
-                Cell cell = gridSettings.grid[x, y];
+                Cell cell = grid[x, y];
                 grid[x, y] = cell;
                 
                 GameObject cellGO = SpawnItem("cell", cell.vector);
                 BuildCell(cellGO, cell);
-                cell.visualizer.TransformCell();
+                cell.gameObject.GetComponent<CellVisualizer>().TransformCell();
             }
         }
 
@@ -155,7 +167,7 @@ public class Grid : MonoBehaviour
 
     public void Spawn()
     {   
-        // InitializeSingleton();
+        // 
         SpawnGridContainer();
         ApplyVisualSettings();
         PopulateDictionary();
@@ -230,7 +242,8 @@ public class Grid : MonoBehaviour
     {   
         CellVisualizer visualizer = instance.AddComponent<CellVisualizer>();
         visualizer.gridCell = cell;
-        cell.visualizer = visualizer;
+        cell.gameObject = instance;
+        // cell.visualizer = visualizer;
         cell.cellGameObject = instance;
         visualizer.Grid = this;
     }
@@ -254,8 +267,6 @@ public class Grid : MonoBehaviour
 
     public void ApplyVisualSettings()
     {
-        // Applying visual settings to the grid
-        // scale = visualSettings.scale;
         offsetX = visualSettings.offsetX;
         offsetY = visualSettings.offsetY;
         materials = visualSettings.materials;

@@ -9,12 +9,14 @@ public class Cell
     public bool isMorphable;
     public bool isButton;
     public int morphIndex;
-    public CellVisualizer visualizer;
+    // public CellVisualizer visualizer;
+    public Grid grid;
     public GameObject cellGameObject;
     public Vector3 position;
     public Vector3 scale;
     public Vector2 vector;
     public MeshRenderer renderer;
+    public GameObject gameObject;
     public int x;
     public int y;
 
@@ -29,6 +31,6 @@ public class Cell
     public void DropCell()
     {   
         isEnabled = false;
-        visualizer.ActivateGravity();
+        gameObject.GetComponent<CellVisualizer>().ActivateGravity();
     }
 }

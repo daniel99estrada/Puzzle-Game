@@ -13,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
     public void Start ()
     {
         InputHandler.Instance.OnNewInput += Move;
+        GetComponentInParent<Grid>().player = this.gameObject;
     }
 
     public void DisableMovement()

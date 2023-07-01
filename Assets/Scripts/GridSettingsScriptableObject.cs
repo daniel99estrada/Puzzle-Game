@@ -4,57 +4,53 @@ using UnityEngine;
 
 [CreateAssetMenu(fileName = "Grid Settings", menuName = "ScriptableObjects/Grid Settings")]
 public class GridSettingsScriptableObject : ScriptableObject
-{    
+{
+
     [Header("Grid Dimensions")]
     public int width;
     public int height;
 
-    [SerializeField]
     public CellArray2D grid;
     public Vector2 playerCell;
     public Vector2 targetCell;
     public int level;
-    public Vector3 cameraPosition;
-    public Vector3 cameraRotation;
+    public string levelTag;
 
-    public void SaveCameraSettings()
-    {
-        GameObject mainCamera = GameObject.FindWithTag("MainCamera");
-        if (mainCamera != null)
-        {
-            Camera cameraComponent = mainCamera.GetComponent<Camera>();
-            if (cameraComponent != null)
-            {
-                cameraPosition = mainCamera.transform.position;
-                cameraRotation = mainCamera.transform.rotation.eulerAngles;
-            }
-        }
-    }
-
-    public void LoadCameraSettings()
-    {
-        GameObject mainCamera = GameObject.FindWithTag("MainCamera");
-        if (mainCamera != null)
-        {
-            Camera cameraComponent = mainCamera.GetComponent<Camera>();
-            if (cameraComponent != null)
-            {
-                mainCamera.transform.position = cameraPosition;
-                mainCamera.transform.eulerAngles = cameraRotation;
-            }
-        }
-        else
-        {
-            Debug.LogWarning("Main camera not found in the scene.");
-        }
-    }
+    // Method to save current settings to the dictionary
     public void SaveCurrentSettings(Grid _grid)
-    {   
+    {
+        // Settings newSettings = new Settings();
+
         width = _grid.width;
         height = _grid.height;
         grid = _grid.grid;
         playerCell = _grid.playerCell;
         targetCell = _grid.targetCell;
-        SaveCameraSettings();
+        level = _grid.level;
+        levelTag = _grid.levelTag;
+
+        // // If the key already exists, update the settings
+        // if (settingsDict.ContainsKey(key))
+        // {
+        //     settingsDict[key] = newSettings;
+        // }
+        // // Otherwise, add a new key-value pair
+        // else
+        // {
+        //     settingsDict.Add(key, newSettings);
+        // }
+    }
+
+    public void RetrieveSettings(Grid _grid)
+    {
+        // if (settingsDict.ContainsKey(key))
+          
+            _grid.width = width;
+            _grid.height = height;
+            _grid.grid = grid;
+            _grid.playerCell = playerCell;
+            _grid.targetCell = targetCell;
+            _grid.level = level;
+            _grid.levelTag = levelTag; 
     }
 }

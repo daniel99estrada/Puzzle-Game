@@ -20,6 +20,11 @@ public class CellVisualizer : MonoBehaviour {
 
     public int morphIndex;
 
+    public void Start()
+    {   
+        GetComponentInParent<Grid>().grid[gridCell.x, gridCell.y] = gridCell;
+    }
+
     public void SaveCell()
     {   
         gridCell.renderer = GetComponent<MeshRenderer>();
