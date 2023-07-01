@@ -8,7 +8,7 @@ public class PlayerMovement : MonoBehaviour
 {   
     public Grid Grid;
     bool _isMoving;
-    public float _rollSpeed = 10;
+    private float _rollSpeed = 10;
 
     public void Start ()
     {

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.IO;
 
 public class Grid : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class Grid : MonoBehaviour
     public VisualSettingsScriptableObject visualSettings;
     [SerializeField]
     public GridSettingsScriptableObject gridSettings;
+        public string levelTag;
+
 
     [Header("Grid Dimensions")]
     public int width;
@@ -100,7 +103,21 @@ public class Grid : MonoBehaviour
         ApplyVisualSettings();
         PopulateDictionary();
 
-        
+        // Load the settings from a file
+        string filePath = Application.persistentDataPath + "/" + levelTag + ".json";
+        gridSettings = GridSettingsScriptableObject.LoadFromFile(filePath);
+
+        // if (gridSettings != null)
+        // {
+        //     // Retrieve the settings
+        //     gridSettings.RetrieveSettings(this);
+
+        //     // Rest of your code...
+        // }
+        // else
+        // {
+        //     Debug.LogError("Failed to load level grid settings.");
+        // } 
         
         grid = gridSettings.grid;
 

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 
 [CreateAssetMenu(fileName = "Grid Settings", menuName = "ScriptableObjects/Grid Settings")]
 public class GridSettingsScriptableObject : ScriptableObject
@@ -16,6 +17,7 @@ public class GridSettingsScriptableObject : ScriptableObject
     public int level;
     public Vector3 cameraPosition;
     public Vector3 cameraRotation;
+    public string levelTag;
 
     public void SaveCameraSettings()
     {
@@ -55,6 +57,32 @@ public class GridSettingsScriptableObject : ScriptableObject
         grid = _grid.grid;
         playerCell = _grid.playerCell;
         targetCell = _grid.targetCell;
-        SaveCameraSettings();
+        levelTag = _grid.levelTag;
+
+        string filePath = Application.persistentDataPath + "/" + levelTag + ".json";
+        SaveToFile(filePath);
     }
+
+    public void SaveToFile(string filePath)
+    {
+        string json = JsonUtility.ToJson(this, true);
+        File.WriteAllText(filePath, json);
+    }
+
+public static GridSettingsScriptableObject LoadFromFile(string filePath)
+{
+    if (File.Exists(filePath))
+    {
+        string json = File.ReadAllText(filePath);
+        GridSettingsScriptableObject gridSettings = CreateInstance<GridSettingsScriptableObject>();
+        JsonUtility.FromJsonOverwrite(json, gridSettings);
+        return gridSettings;
+    }
+    else
+    {
+        Debug.LogWarning("Save file not found: " + filePath);
+        return null;
+    }
+}
+
 }
