@@ -49,7 +49,7 @@ public class Grid : MonoBehaviour
 
     // private GameObject GridContainer;
     
-    private void Awake()
+    private void Start()
     {   
         InitializeSingleton();
         LoadLevelgrid();
