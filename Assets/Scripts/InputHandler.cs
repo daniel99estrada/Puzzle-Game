@@ -40,10 +40,24 @@ public class InputHandler : MonoBehaviour
 
     private void Move(InputAction.CallbackContext context)
     {
-        Vector2 movementInput = context.ReadValue<Vector2>();
         if (_isMoving) return;
 
-        // Invoke the MovePlayer event with the movement input
-        OnNewInput?.Invoke(movementInput);        
+        Vector2 movementInput = context.ReadValue<Vector2>();
+
+        OnNewInput?.Invoke(movementInput);   
+
+        StartCoroutine(DisableInput());     
+    }
+
+    private IEnumerator DisableInput()
+    {
+        // Disable movement
+        _isMoving = true;
+
+        // Wait for half a second
+        yield return new WaitForSeconds(0.2f);
+
+        // Enable movement
+        _isMoving = false;
     }
 }

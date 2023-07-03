@@ -10,8 +10,7 @@ public class Grid : MonoBehaviour
     public VisualSettingsScriptableObject visualSettings;
     [SerializeField]
     public GridSettingsScriptableObject gridSettings;
-        public string levelTag;
-
+    public string levelTag;
 
     [Header("Grid Dimensions")]
     public int width;
@@ -27,7 +26,6 @@ public class Grid : MonoBehaviour
 
     [Header("Materials")]
     private List<Material> materials;
-
 
     [Header("Grid Container")]
     public GameObject GridContainer;
@@ -46,47 +44,21 @@ public class Grid : MonoBehaviour
     public event Action OnReachedTarget;
 
     public static Grid Instance { get; private set; }
-
-    // private GameObject GridContainer;
     
     private void Start()
     {   
-        InitializeSingleton();
         LoadLevelgrid();
-    }
-
-    private void InitializeSingleton()
-    {
-        // if (Instance != null && Instance != this)
-        // {
-        //     Destroy(gameObject);
-        //     return;
-        // }
-
-        // Instance = this;
     }
 
     void SpawnGridContainer()
     {
-        // GameObject gridContainer = GameObject.Find("Grid Container"); // Find the "Grid Container" GameObject by name
-
-        if (GridContainer != null) // Check if the "Grid Container" GameObject exists
-        {
-#if UNITY_EDITOR
-            DestroyImmediate(GridContainer); 
-#else
-            Destroy(GridContainer); 
-#endif
-        }
-
+        DestroyObject(GridContainer);
         GridContainer = new GameObject("Grid Container");
-        GridContainer.transform.SetParent(transform);  
+        GridContainer.transform.SetParent(transform);
     }
 
     public void SaveLevelgrid()
     {   
-        InitializeSingleton();
-
         foreach (Cell cell in grid.cells)
         {   
             cell.visualizer.SaveCell();
@@ -97,43 +69,20 @@ public class Grid : MonoBehaviour
 
     public void LoadLevelgrid()
     {   
-        // InitializeSingleton();
         SpawnGridContainer();
-        // morphCellDict = new Dictionary <int, List<CellVisualizer>>();
         ApplyVisualSettings();
         PopulateDictionary();
+        DestroyObject(player);
 
-        // Load the settings from a file
         string filePath = Application.persistentDataPath + "/" + levelTag + ".json";
         gridSettings = GridSettingsScriptableObject.LoadFromFile(filePath);
 
-        // if (gridSettings != null)
-        // {
-        //     // Retrieve the settings
-        //     gridSettings.RetrieveSettings(this);
-
-        //     // Rest of your code...
-        // }
-        // else
-        // {
-        //     Debug.LogError("Failed to load level grid settings.");
-        // } 
-        
         grid = gridSettings.grid;
 
         playerCell = gridSettings.playerCell;
         targetCell = gridSettings.targetCell;
         width = gridSettings.width;
         height = gridSettings.height;
-
-        // foreach (Cell cell in gridSettings.grid)
-        // {   
-        //     GameObject cellGO = SpawnItem("cell", cell.vector);
-        //     BuildCell(cellGO, cell);
-        //     cell.visualizer.TransformCell();
-        // }
-
-        // grid = new CellArray2D(width, height);
 
         for (int x = 0; x < width; x++)
         {
@@ -172,7 +121,6 @@ public class Grid : MonoBehaviour
 
     public void Spawn()
     {   
-        // InitializeSingleton();
         SpawnGridContainer();
         ApplyVisualSettings();
         PopulateDictionary();
@@ -226,17 +174,20 @@ public class Grid : MonoBehaviour
                 Debug.Log("You Lost");
             }
 
-            player.GetComponent<PlayerMovement>().Assemble(new Vector3(dir.x, 0, dir.y)); 
-
-            playerCell = newCell;
-
             if (GetCell(playerCell).isButton)
             {   
                 GridManager.Instance.ToggleCellSizes(GetCell(playerCell).morphIndex);
             }
+
+            PlayerMovement playerMovement = player.GetComponent<PlayerMovement>();
+            if (playerMovement != null)
+            {
+                playerMovement.Assemble(new Vector3(dir.x, 0, dir.y));
+            }
+
+            playerCell = newCell;
         }
     }
-
 
     public bool InBounds(Vector2 position)
     {
@@ -268,15 +219,33 @@ public class Grid : MonoBehaviour
         }
     }
 
-
     public void ApplyVisualSettings()
     {
-        // Applying visual settings to the grid
-        // scale = visualSettings.scale;
         offsetX = visualSettings.offsetX;
         offsetY = visualSettings.offsetY;
         materials = visualSettings.materials;
     }
 
+    void DestroyAllChildren(GameObject parentObject)
+    {
+        int childCount = parentObject.transform.childCount;
+        for (int i = childCount - 1; i >= 0; i--)
+        {
+            Transform childTransform = parentObject.transform.GetChild(i);
+            GameObject childObject = childTransform.gameObject;
+            DestroyObject(childObject);
+        }
+    }
 
+    public void DestroyObject(GameObject obj)
+    {
+        if (obj != null)
+        {
+    #if UNITY_EDITOR
+            DestroyImmediate(obj);
+    #else
+            Destroy(obj);
+    #endif 
+        }    
+    }
 }
