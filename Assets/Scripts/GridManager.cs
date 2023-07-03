@@ -9,6 +9,7 @@ public class GridManager : MonoBehaviour
     public Dictionary <int, List<CellVisualizer>> morphCellDict;
 
     public static GridManager Instance;
+    public int level;
 
     private void Awake()
     {

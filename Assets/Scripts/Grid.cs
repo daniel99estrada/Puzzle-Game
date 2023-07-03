@@ -10,15 +10,16 @@ public class Grid : MonoBehaviour
     public VisualSettingsScriptableObject visualSettings;
     [SerializeField]
     public GridSettingsScriptableObject gridSettings;
-    public string levelTag;
+    public string gridTag;
+    public int level;
 
     [Header("Grid Dimensions")]
     public int width;
     public int height;
 
-    [Header("Offset")]
-    public float offsetX;
-    public float offsetY;
+    // [Header("Offset")]
+    private float offsetX;
+    private float offsetY;
 
     [Header("Player and Target Cells")]
     public Vector2 playerCell; 
@@ -27,9 +28,10 @@ public class Grid : MonoBehaviour
     [Header("Materials")]
     private List<Material> materials;
 
-    [Header("Grid Container")]
-    public GameObject GridContainer;
+    // [Header("Grid Container")]
+    private GameObject GridContainer;
     public float cameraOffset;
+    public float gridOffset;
 
     [Header("Grid")]
     public CellArray2D grid;
@@ -47,6 +49,7 @@ public class Grid : MonoBehaviour
     
     private void Start()
     {   
+        level = GridManager.Instance.level;
         LoadLevelgrid();
     }
 
@@ -74,7 +77,7 @@ public class Grid : MonoBehaviour
         PopulateDictionary();
         DestroyObject(player);
 
-        string filePath = Application.persistentDataPath + "/" + levelTag + ".json";
+        string filePath = Application.persistentDataPath + "/" + level + gridTag + ".json";
         gridSettings = GridSettingsScriptableObject.LoadFromFile(filePath);
 
         grid = gridSettings.grid;
@@ -100,6 +103,9 @@ public class Grid : MonoBehaviour
         player = SpawnItem("player", playerCell);
         player.GetComponent<PlayerMovement>().Grid = this;
         target = SpawnItem("target", targetCell);
+
+        Camera cameraComponent = GetComponentInChildren<Camera>();
+        cameraComponent.orthographicSize = cameraOffset;
     }
 
     private void PopulateDictionary()
@@ -208,7 +214,7 @@ public class Grid : MonoBehaviour
         if (prefabDictionary.ContainsKey(tag))
         {
             PrefabObject prefab = prefabDictionary[tag];
-            Vector3 position = new Vector3(cameraOffset + pos.x * offsetX, prefab.height, pos.y * offsetY);
+            Vector3 position = new Vector3(gridOffset + pos.x * offsetX, prefab.height, pos.y * offsetY);
             GameObject instance = Instantiate(prefab.prefab, position, Quaternion.identity, GridContainer.transform);
             return instance;
         }

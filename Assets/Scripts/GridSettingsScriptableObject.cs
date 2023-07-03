@@ -17,7 +17,8 @@ public class GridSettingsScriptableObject : ScriptableObject
     public int level;
     public Vector3 cameraPosition;
     public Vector3 cameraRotation;
-    public string levelTag;
+    public string gridTag;
+    public float cameraOffset;
 
     public void SaveCameraSettings()
     {
@@ -57,9 +58,11 @@ public class GridSettingsScriptableObject : ScriptableObject
         grid = _grid.grid;
         playerCell = _grid.playerCell;
         targetCell = _grid.targetCell;
-        levelTag = _grid.levelTag;
+        gridTag = _grid.gridTag;
+        level = _grid.level;
+        cameraOffset = _grid.cameraOffset;
 
-        string filePath = Application.persistentDataPath + "/" + levelTag + ".json";
+        string filePath = Application.persistentDataPath + "/" + level+ gridTag + ".json";
         SaveToFile(filePath);
     }
 
