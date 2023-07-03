@@ -28,6 +28,11 @@ public class CellVisualizer : MonoBehaviour {
         gridCell.scale = sourceTransform.localScale;
         
         Grid.grid[gridCell.x, gridCell.y] = gridCell;
+        
+        // if (gridCell.isMorphable) 
+        // {
+        //     GridManager.Instance.AddToMorphableList(morphIndex, this);
+        // }
     }
 
     public void LoadSettings()

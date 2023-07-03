@@ -17,9 +17,9 @@ public class Grid : MonoBehaviour
     public int width;
     public int height;
 
-    // [Header("Offset")]
-    private float offsetX;
-    private float offsetY;
+    [Header("Offset")]
+    public float offsetX;
+    public float offsetY;
 
     [Header("Player and Target Cells")]
     public Vector2 playerCell; 
@@ -28,8 +28,8 @@ public class Grid : MonoBehaviour
     [Header("Materials")]
     private List<Material> materials;
 
-    // [Header("Grid Container")]
-    private GameObject GridContainer;
+    [Header("Grid Container")]
+    public GameObject GridContainer;
     public float cameraOffset;
     public float gridOffset;
 
@@ -49,7 +49,6 @@ public class Grid : MonoBehaviour
     
     private void Start()
     {   
-        level = GridManager.Instance.level;
         LoadLevelgrid();
     }
 
@@ -77,7 +76,7 @@ public class Grid : MonoBehaviour
         PopulateDictionary();
         DestroyObject(player);
 
-        string filePath = Application.persistentDataPath + "/" + level + gridTag + ".json";
+        string filePath = Application.persistentDataPath + "/" + level + "" + gridTag + ".json";
         gridSettings = GridSettingsScriptableObject.LoadFromFile(filePath);
 
         grid = gridSettings.grid;
@@ -86,6 +85,7 @@ public class Grid : MonoBehaviour
         targetCell = gridSettings.targetCell;
         width = gridSettings.width;
         height = gridSettings.height;
+        cameraOffset = gridSettings.cameraOffset;
 
         for (int x = 0; x < width; x++)
         {
