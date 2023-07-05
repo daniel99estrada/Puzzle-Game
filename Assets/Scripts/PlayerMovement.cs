@@ -19,6 +19,11 @@ public class PlayerMovement : MonoBehaviour
     {
         InputHandler.Instance.OnNewInput -= Move;
     }
+    
+    private void OnDestroy()
+    {
+        InputHandler.Instance.OnNewInput -= Move;
+    }
 
     private void Move(Vector2 movementInput)
     {   

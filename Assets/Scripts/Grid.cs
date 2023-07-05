@@ -31,6 +31,7 @@ public class Grid : MonoBehaviour
     [Header("Grid Container")]
     public GameObject GridContainer;
     public float cameraOffset;
+    public float cameraXpos;
     public float gridOffset;
 
     [Header("Grid")]
@@ -86,6 +87,7 @@ public class Grid : MonoBehaviour
         width = gridSettings.width;
         height = gridSettings.height;
         cameraOffset = gridSettings.cameraOffset;
+        cameraXpos = gridSettings.cameraXpos;
 
         for (int x = 0; x < width; x++)
         {
@@ -106,6 +108,8 @@ public class Grid : MonoBehaviour
 
         Camera cameraComponent = GetComponentInChildren<Camera>();
         cameraComponent.orthographicSize = cameraOffset;
+        Transform cameraTransform = cameraComponent.transform;
+        cameraTransform.localPosition = new Vector3(cameraXpos, 0, 0);
     }
 
     private void PopulateDictionary()
