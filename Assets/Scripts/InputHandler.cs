@@ -8,7 +8,7 @@ public class InputHandler : MonoBehaviour
 {
     public event Action<Vector2> OnNewInput;
 
-    bool _isMoving;
+    public bool isMoving;
 
     private PlayerInput playerInput;
 
@@ -41,9 +41,8 @@ public class InputHandler : MonoBehaviour
     private void Move(InputAction.CallbackContext context)
     {
         Vector2 movementInput = context.ReadValue<Vector2>();
-        if (_isMoving) return;
+        if (isMoving) return;
 
-        // Invoke the MovePlayer event with the movement input
         OnNewInput?.Invoke(movementInput);        
     }
 }

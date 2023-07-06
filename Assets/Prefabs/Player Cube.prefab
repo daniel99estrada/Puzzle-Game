@@ -111,4 +111,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Grid: {fileID: 0}
-  _rollSpeed: 5
+  forceMagnitude: 10
+  rotationSpeed: 90

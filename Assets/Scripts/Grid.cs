@@ -190,6 +190,7 @@ public class Grid : MonoBehaviour
             }
 
             PlayerMovement playerMovement = player.GetComponent<PlayerMovement>();
+            
             if (playerMovement != null)
             {
                 playerMovement.Assemble(new Vector3(dir.x, 0, dir.y));
