@@ -50,6 +50,7 @@ public class Grid : MonoBehaviour
     
     private void Start()
     {   
+        level = GridManager.Instance.level;
         LoadLevelgrid();
     }
 
@@ -81,7 +82,6 @@ public class Grid : MonoBehaviour
         gridSettings = GridSettingsScriptableObject.LoadFromFile(filePath);
 
         grid = gridSettings.grid;
-
         playerCell = gridSettings.playerCell;
         targetCell = gridSettings.targetCell;
         width = gridSettings.width;
@@ -184,13 +184,14 @@ public class Grid : MonoBehaviour
                 Debug.Log("You Lost");
             }
 
-            if (GetCell(playerCell).isButton)
+            if (GetCell(newCell).isButton)
             {   
+                Debug.Log("Pressed Button");
                 GridManager.Instance.ToggleCellSizes(GetCell(playerCell).morphIndex);
             }
 
             PlayerMovement playerMovement = player.GetComponent<PlayerMovement>();
-            
+
             if (playerMovement != null)
             {
                 playerMovement.Assemble(new Vector3(dir.x, 0, dir.y));
