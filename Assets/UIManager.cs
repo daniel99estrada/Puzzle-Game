@@ -5,11 +5,22 @@ using TMPro;
 
 public class UIManager : MonoBehaviour
 {   
-    public TextMeshProUGUI textMeshPro;
+    // public TextMeshProUGUI textMeshPro;
 
-    void Start()
+    // void Start()
+    // {
+    //     textMeshPro = GetComponent<TextMeshProUGUI>();
+    //     textMeshPro.text = "lvl. " + GridManager.Instance.level;
+    // }
+    public GameObject menuUI;
+    public GameObject settingsUI;
+
+    public void ShowSettingsMenu()
     {
-        textMeshPro = GetComponent<TextMeshProUGUI>();
-        textMeshPro.text = "lvl. " + GridManager.Instance.level;
+        if (menuUI != null)
+            menuUI.SetActive(false);
+
+        if (settingsUI != null)
+            settingsUI.SetActive(true);
     }
 }

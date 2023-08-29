@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 
 public class GridManager : MonoBehaviour
 {
@@ -20,6 +21,8 @@ public class GridManager : MonoBehaviour
         }
 
         Instance = this;
+
+        ListFilesInPersistentDataPath();
     }
 
     public void AddToMorphableList(int key, CellVisualizer cellVisualizer)
@@ -51,6 +54,24 @@ public class GridManager : MonoBehaviour
         else
         {
             Debug.LogWarning("No cells found for tag " + tag);
+        }
+    }
+
+    private void ListFilesInPersistentDataPath()
+    {
+        string[] files = Directory.GetFiles(Application.persistentDataPath);
+
+        if (files.Length > 0)
+        {
+            Debug.Log("Files in Application.persistentDataPath:");
+            foreach (string file in files)
+            {
+                Debug.Log(file);
+            }
+        }
+        else
+        {
+            Debug.Log("No files found in Application.persistentDataPath.");
         }
     }
 }
