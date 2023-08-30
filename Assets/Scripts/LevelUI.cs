@@ -9,7 +9,7 @@ public class LevelUI : MonoBehaviour
 
     private void Start()
     {   
-        currentLevel = Grid.Instance.gridSettings.level;
+        currentLevel = GridManager.Instance.level;
         // Find the level label in the UIDocument
         levelLabel = uiDocument.rootVisualElement.Q<Label>("LevelLabel");
 

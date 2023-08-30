@@ -4,24 +4,21 @@ using System.Collections.Generic;
 [CreateAssetMenu]
 public class LevelsScriptableObject : ScriptableObject {
 
-    public Dictionary<int, string> Levels = new Dictionary<int, string>();
-
-    public List<LevelData> LevelsList = new List<LevelData>();
-
-    public class LevelData {
-        public int id;
-        public string name;
-
-        public LevelData(int id, string name) {
-            this.id = id;
-            this.name = name;
-        }
+    [System.Serializable]
+    public class LevelInfo {
+        public int levelID;
+        public string levelName;
     }
 
-    public void PopulateLevels() {
-        foreach (LevelData level in LevelsList) {
-            Levels.Add(level.id, level.name);
+    public List<LevelInfo> levelList = new List<LevelInfo>();
+    public Dictionary<int, string> LevelNameDict = new Dictionary<int, string>();
+
+    // Call this method to populate the dictionary using the list
+    public void PopulateDictionaryFromList() {
+        LevelNameDict.Clear(); // Clear the dictionary first
+
+        foreach (var levelInfo in levelList) {
+            LevelNameDict[levelInfo.levelID] = levelInfo.levelName;
         }
     }
-
 }

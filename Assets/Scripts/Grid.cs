@@ -12,6 +12,7 @@ public class Grid : MonoBehaviour
     public GridSettingsScriptableObject gridSettings;
     public string gridTag;
     public int level;
+    public string levelTag;
 
     [Header("Grid Dimensions")]
     public int width;
@@ -51,6 +52,7 @@ public class Grid : MonoBehaviour
     private void Start()
     {   
         level = GridManager.Instance.level;
+        levelTag = GridManager.Instance.GetLevelTag();
         LoadLevelgrid();
     }
 
@@ -77,8 +79,8 @@ public class Grid : MonoBehaviour
         ApplyVisualSettings();
         PopulateDictionary();
         DestroyObject(player);
-
-        string filePath = Application.persistentDataPath + "/" + level + "" + gridTag + ".json";
+    
+        string filePath = Application.persistentDataPath + "/" + levelTag + "" + gridTag + ".json";
         gridSettings = GridSettingsScriptableObject.LoadFromFile(filePath);
 
         grid = gridSettings.grid;
