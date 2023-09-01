@@ -13,7 +13,17 @@ MonoBehaviour:
   m_Name: Levels
   m_EditorClassIdentifier: 
   levelList:
-  - levelID: 100
+  - levelID: 1
     levelTag: 1
-  - levelID: 101
+  - levelID: 2
     levelTag: 2
+  - levelID: 3
+    levelTag: 3
+  - levelID: 4
+    levelTag: 4
+  - levelID: 5
+    levelTag: 5
+  - levelID: 6
+    levelTag: 6
+  - levelID: 7
+    levelTag: zigzag

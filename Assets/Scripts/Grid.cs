@@ -11,7 +11,6 @@ public class Grid : MonoBehaviour
     [SerializeField]
     public GridSettingsScriptableObject gridSettings;
     public string gridTag;
-    public int level;
     public string levelTag;
 
     [Header("Grid Dimensions")]
@@ -51,7 +50,6 @@ public class Grid : MonoBehaviour
     
     private void Start()
     {   
-        level = GridManager.Instance.level;
         levelTag = GridManager.Instance.GetLevelTag();
         Debug.Log(levelTag);
         LoadLevelgrid();
@@ -177,6 +175,7 @@ public class Grid : MonoBehaviour
                 Debug.Log("You Won");
                 OnReachedTarget?.Invoke();
                 player.GetComponent<PlayerMovement>().DisableMovement();
+                player.GetComponent<PlayerMovement>().WinningRoll();
             }
 
             if (GetCell(playerCell).isGlass)
