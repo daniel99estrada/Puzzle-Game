@@ -7,7 +7,7 @@ public class LevelsScriptableObject : ScriptableObject {
     [System.Serializable]
     public class LevelInfo {
         public int levelID;
-        public string levelName;
+        public string levelTag;
     }
 
     public List<LevelInfo> levelList = new List<LevelInfo>();
@@ -15,10 +15,11 @@ public class LevelsScriptableObject : ScriptableObject {
 
     // Call this method to populate the dictionary using the list
     public void PopulateDictionaryFromList() {
-        LevelNameDict.Clear(); // Clear the dictionary first
+        // LevelNameDict.Clear(); // Clear the dictionary first
 
         foreach (var levelInfo in levelList) {
-            LevelNameDict[levelInfo.levelID] = levelInfo.levelName;
+            LevelNameDict[levelInfo.levelID] = levelInfo.levelTag;
+            Debug.Log("level name dict: " + LevelNameDict[levelInfo.levelID]); 
         }
     }
 }

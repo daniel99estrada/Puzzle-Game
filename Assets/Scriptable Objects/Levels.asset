@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: Levels
   m_EditorClassIdentifier: 
   levelList:
-  - levelID: 0
-    levelName: 
+  - levelID: 100
+    levelTag: 1
+  - levelID: 101
+    levelTag: 2

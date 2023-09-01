@@ -22,7 +22,7 @@ public class GridManager : MonoBehaviour
         }
 
         Instance = this;
-
+        levelDatabase.PopulateDictionaryFromList();
         ListFilesInPersistentDataPath();
     }
 

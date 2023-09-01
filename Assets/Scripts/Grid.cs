@@ -53,6 +53,7 @@ public class Grid : MonoBehaviour
     {   
         level = GridManager.Instance.level;
         levelTag = GridManager.Instance.GetLevelTag();
+        Debug.Log(levelTag);
         LoadLevelgrid();
     }
 
@@ -81,6 +82,8 @@ public class Grid : MonoBehaviour
         DestroyObject(player);
     
         string filePath = Application.persistentDataPath + "/" + levelTag + "" + gridTag + ".json";
+
+        Debug.Log("File Path for the grid" + filePath);
         gridSettings = GridSettingsScriptableObject.LoadFromFile(filePath);
 
         grid = gridSettings.grid;

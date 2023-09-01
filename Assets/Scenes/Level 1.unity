@@ -819,6 +819,7 @@ MonoBehaviour:
   gridSettings: {fileID: 2124663268}
   gridTag: B
   level: 2
+  levelTag: 
   width: 3
   height: 3
   offsetX: 1.1
@@ -6902,6 +6903,7 @@ MonoBehaviour:
   gridSettings: {fileID: 878024471}
   gridTag: A
   level: 2
+  levelTag: 
   width: 4
   height: 4
   offsetX: 1.1
@@ -7931,7 +7933,7 @@ MonoBehaviour:
   gridTag: A
   cameraOffset: 9
   cameraXpos: 0
-  level: 2
+  levelTag: 
 --- !u!1 &904029761
 GameObject:
   m_ObjectHideFlags: 0
@@ -14673,7 +14675,7 @@ GameObject:
   - component: {fileID: 1456762267}
   - component: {fileID: 1456762266}
   m_Layer: 5
-  m_Name: Image
+  m_Name: TOP grid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15975,7 +15977,7 @@ GameObject:
   - component: {fileID: 1807699109}
   - component: {fileID: 1807699108}
   m_Layer: 5
-  m_Name: Image (1)
+  m_Name: Bottom Grid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16754,7 +16756,7 @@ MonoBehaviour:
   gridTag: B
   cameraOffset: 9
   cameraXpos: 0
-  level: 2
+  levelTag: 
 --- !u!1 &845312953531820643
 GameObject:
   m_ObjectHideFlags: 0
@@ -16846,4 +16848,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f277b95a1978fe418b997a4c69d97f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  level: 2
+  levelDatabase: {fileID: 11400000, guid: f706a705c58493446bdde9d12998e8f6, type: 2}
+  level: 100
