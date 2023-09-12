@@ -170,14 +170,6 @@ public class Grid : MonoBehaviour
 
         if (InBounds(newCell) && GetCell(newCell).isEnabled)
         {   
-            if (newCell == targetCell) 
-            {
-                Debug.Log("You Won");
-                OnReachedTarget?.Invoke();
-                player.GetComponent<PlayerMovement>().DisableMovement();
-                player.GetComponent<PlayerMovement>().WinningRoll();
-            }
-
             if (GetCell(playerCell).isGlass)
             {
                 GetCell(playerCell).DropCell();
@@ -195,13 +187,25 @@ public class Grid : MonoBehaviour
             }
 
             PlayerMovement playerMovement = player.GetComponent<PlayerMovement>();
+            
+            if (newCell == targetCell) 
+            {
+                Debug.Log("You Won");
+                OnReachedTarget?.Invoke();
+                player.GetComponent<PlayerMovement>().DisableMovement();
+                player.GetComponent<PlayerMovement>().WinningRoll(new Vector3(dir.x, 0, dir.y));
+                return;
+            }
 
             if (playerMovement != null)
             {
                 playerMovement.Assemble(new Vector3(dir.x, 0, dir.y));
             }
 
+
+
             playerCell = newCell;
+
         }
     }
 

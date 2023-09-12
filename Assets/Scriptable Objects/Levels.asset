@@ -27,3 +27,5 @@ MonoBehaviour:
     levelTag: 6
   - levelID: 7
     levelTag: zigzag
+  - levelID: 8
+    levelTag: fiugym

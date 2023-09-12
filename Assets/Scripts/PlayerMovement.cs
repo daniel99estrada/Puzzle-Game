@@ -75,11 +75,27 @@ IEnumerator SpinObjectCoroutine()
 
         isRotating = false;
     }
-    public void WinningRoll() 
+    public void WinningRoll(Vector3 rotationAxis)
     {   
+        // StartCoroutine(SpinObjectCoroutine());
+        StartCoroutine(WinRollAndMoveUp(rotationAxis));
+        // yield return null;
+    }
+
+    private IEnumerator WinRollAndMoveUp(Vector3 dir)
+    {
+        // Start the Roll coroutine and wait for it to finish
+        var anchor = transform.position + (Vector3.down + dir) * (1.1f/2) ;
+        var axis = Vector3.Cross(Vector3.up, dir);
+        yield return StartCoroutine(Roll(anchor, axis)); // Change the parameters as needed
+        yield return new WaitForSeconds(0.05f);
+
+        // Now, perform WinningRoll rotation and MoveUp simultaneously
         StartCoroutine(SpinObjectCoroutine());
         StartCoroutine(MoveUp());
+        yield return null;
     }
+
     
     private IEnumerator Roll(Vector3 anchor, Vector3 axis) {
         
@@ -98,10 +114,6 @@ IEnumerator SpinObjectCoroutine()
 
     public void AddForceAndRotate()
     {
-        // Add force in the up direction
-        // rb.AddForce(Vector3.up * forceMagnitude, ForceMode.Impulse);
-
-        // Rotate the game object 360 degrees
         StartCoroutine(RotateObject());
     }
 
@@ -119,19 +131,19 @@ IEnumerator SpinObjectCoroutine()
     }
 
 public AnimationCurve movementCurve = new AnimationCurve(
-    new Keyframe(0f, 1f),
-    new Keyframe(0.1f, 1f),
-    new Keyframe(0.2f, 1f),
-    new Keyframe(0.3f, 0.7f),
-    new Keyframe(0.4f, 0.3f),
-    new Keyframe(0.6f, 0.7f),
-    new Keyframe(0.7f, 1f),
-    new Keyframe(0.8f, 1f),
-    new Keyframe(0.9f, 1f),
-    new Keyframe(1.0f, 1f)
-); 
-    public float movementHeight = 2.0f; // Total height of the movement
-    public float movementSpeed = 1.0f; // Speed of the movement
+    new Keyframe(0f, 0.9f),
+    new Keyframe(0.1f, 0.9f),
+    new Keyframe(0.2f, 0.8f),
+    new Keyframe(0.3f, 0.5f),
+    new Keyframe(0.4f, 0.4f),
+    new Keyframe(0.6f, 0.4f),
+    new Keyframe(0.7f, 0.5f),
+    new Keyframe(0.8f, 0.8f),
+    new Keyframe(0.9f, 0.9f),
+    new Keyframe(1.0f, 0.9f)
+);
+    public float movementHeight = 0.0005f; // Total height of the movement
+    public float movementSpeed = 0.00001f; // Speed of the movement
 
     private Vector3 startPosition;
     private bool isMovingUp = true; // Flag to track the direction of movement
@@ -146,7 +158,8 @@ public AnimationCurve movementCurve = new AnimationCurve(
         while (fractionOfJourney <= 1f)
         {
             float journeyTime = Time.time - startTime;
-            fractionOfJourney = journeyTime / movementSpeed;
+            // fractionOfJourney = journeyTime / movementSpeed;
+            fractionOfJourney = movementCurve.Evaluate(journeyTime/movementSpeed);
 
             if (fractionOfJourney > 1f)
             {
@@ -155,6 +168,7 @@ public AnimationCurve movementCurve = new AnimationCurve(
             }
 
             float yOffset = movementCurve.Evaluate(fractionOfJourney) * movementHeight;
+            Debug.Log(fractionOfJourney);
 
             // Update the position based on the direction of movement
             Vector3 newPosition = isMovingUp ? startPosition + new Vector3(0f, yOffset, 0f) : startPosition - new Vector3(0f, yOffset, 0f);
