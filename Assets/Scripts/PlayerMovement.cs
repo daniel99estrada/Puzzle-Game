@@ -8,13 +8,11 @@ public class PlayerMovement : MonoBehaviour
 {   
     public Grid Grid;
     private float _rollSpeed = 10;
+    private Rigidbody rb;
 
     public void Start ()
     {   
         InputHandler.Instance.OnNewInput += Move;
-        
-
-        rb = GetComponent<Rigidbody>();
     }
 
     public void DisableMovement()
@@ -45,13 +43,13 @@ public class PlayerMovement : MonoBehaviour
     private float WinningRollSpeed = 360;
     public AnimationCurve speedCurve = new AnimationCurve(
         new Keyframe(0f, 1f),
-        new Keyframe(0.1f, 1f),
-        new Keyframe(0.2f, 1f),
-        new Keyframe(0.3f, 0.1f),
-        new Keyframe(0.4f, 0.1f),
+        new Keyframe(0.1f, 3f),
+        new Keyframe(0.2f, 4f),
+        new Keyframe(0.3f, 0.4f),
+        new Keyframe(0.4f, 0.5f),
         new Keyframe(0.6f, 0.6f),
         new Keyframe(0.8f, 0.4f),
-        new Keyframe(0.9f, 0.2f),
+        new Keyframe(0.9f, 0.3f),
         new Keyframe(1.0f, 0.1f)
     );
 IEnumerator SpinObjectCoroutine()
@@ -81,7 +79,8 @@ IEnumerator SpinObjectCoroutine()
         StartCoroutine(WinRollAndMoveUp(rotationAxis));
         // yield return null;
     }
-
+    public Vector3 jump = new Vector3(0,1,0);
+    public float jumpForce = 2.0f;
     private IEnumerator WinRollAndMoveUp(Vector3 dir)
     {
         // Start the Roll coroutine and wait for it to finish
@@ -92,7 +91,9 @@ IEnumerator SpinObjectCoroutine()
 
         // Now, perform WinningRoll rotation and MoveUp simultaneously
         StartCoroutine(SpinObjectCoroutine());
-        StartCoroutine(MoveUp());
+        rb = gameObject.AddComponent<Rigidbody>();
+        rb.AddForce(jump * jumpForce, ForceMode.Impulse);
+        // StartCoroutine(MoveUp());
         yield return null;
     }
 
@@ -109,8 +110,6 @@ IEnumerator SpinObjectCoroutine()
 
     public float forceMagnitude = 1f;
     public float rotationSpeed = 300f;
-    private Rigidbody rb;
-
 
     public void AddForceAndRotate()
     {
@@ -149,10 +148,12 @@ public AnimationCurve movementCurve = new AnimationCurve(
     private bool isMovingUp = true; // Flag to track the direction of movement
 
     private IEnumerator MoveUp()
-    {
+    {   
+        
         startPosition = transform.position;
         float journeyLength = movementHeight * 2; // Total distance traveled in the movement
         float startTime = Time.time;
+        float zenith = 2.0f;
         float fractionOfJourney = 0f;
 
         while (fractionOfJourney <= 1f)
